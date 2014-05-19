@@ -1,17 +1,16 @@
 app.controller('MainCtrl', ['$scope', 'GovTrack',
 	function($scope,GovTrack){
-		getAllCong();
-		function getAllCong(){
-			GovTrack.allCong()
-				.success(function(data){
-					congress = data;	
-					console.log('data', data);
-					$scope.allCong = data;
-				})
-				.error(function(){
-					console.log('allCong api access error.');
+		
+		var polObjs = null;
+		GovTrack.get(function(pols){
+				console.log('pols', pols);	
+				$scope.congress = pols.objects;
+				var names = pols.objects.map(function(pol){
+					return pol.person.name;
 				});
-		}
+				$scope.allNames = names;
+		});
 		$scope.test = 'scope test';					
+
 	}
 ]);

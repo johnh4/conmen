@@ -1,5 +1,5 @@
 
-var app = angular.module('ConMen', ['ngRoute']);
+var app = angular.module('ConMen', ['ngRoute','ngResource']);
 
 
 app.config(['$routeProvider', function($routeProvider){

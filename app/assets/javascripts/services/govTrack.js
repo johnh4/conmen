@@ -1,11 +1,10 @@
-app.factory('GovTrack', ['$http', 
-	function($http){
+app.factory('GovTrack', ['$http','$resource', 
+	function($http,$resource){
 
-		var congress = {};
-		congress.allCong = function(){
-			return $http.get('https://www.govtrack.us/api/v2/role?current=true');
-		};
+		var url ='https://www.govtrack.us/api/v2/:action';
+		var congResource = $resource(url, {action: 'role', current: 'true'},
+												{get: {}, isArray: true});
+		return congResource;
 
-		return congress;
 	}
 ]);
