@@ -1,0 +1,14 @@
+<h4>main.html</h4>
+<div>{{ test }}</div>
+<div>{{ allCong }}</div>
+in public
+<ul id="tweets">
+</ul>
+<ul class="names">
+	<li class="name" ng-repeat="con in congress">
+		{{ con.person.name }} - 
+		<a ng-href="http://www.twitter.com/{{con.person.twitterid}}">
+			@{{ con.person.twitterid }}
+		</a>
+	</li>
+</ul>
