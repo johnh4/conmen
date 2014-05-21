@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
+gem 'puma', '~>2.8.2'
+
 gem 'tweetstream', '~>2.6.1'
 gem 'angularjs-rails', '1.2.16'
+gem 'redis', '~>3.0.7'
 
 gem 'foundation-rails', '~>5.2.2.0'
 gem 'figaro', '~> 0.7.0'

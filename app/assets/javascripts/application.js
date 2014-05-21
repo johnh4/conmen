@@ -20,8 +20,8 @@
 $(function(){
 	var source = new EventSource('home/events');
 
-	source.addEventListener ('message', function(e){
-		console.log('e', e);
+	source.addEventListener('message', function(e){
+		console.log('e false changed again', e);
 		var tweet = $.parseJSON(e.data);
 		
 		console.log('tweet', tweet);

@@ -9,7 +9,8 @@ end
 
 TweetStream::Client.new.track('nba') do |status|
 	puts "#{status.text}"
-	Tweet.create(text: status.text)
+	tweet = Tweet.create(text: status.text)
+	$redis.publish('tweets.create', tweet.to_json)
 end
 =begin
 daemon = TweetStream::Daemon.new('tracker', :log_output => true)
