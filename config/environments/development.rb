@@ -1,5 +1,5 @@
 Rails.application.configure do
-  ENV["REDISTOGO_URL"] = 'redis://username:password@my.host:6389'
+  ENV["REDISTOGO_URL"] = 'redis://localhost:6379'
 	
 	# Settings specified here will take precedence over those in config/application.rb.
 
