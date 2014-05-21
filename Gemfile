@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'tweetstream', '~>2.6.1'
 gem 'angularjs-rails', '1.2.16'
 
 gem 'foundation-rails', '~>5.2.2.0'

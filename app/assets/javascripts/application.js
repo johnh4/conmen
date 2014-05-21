@@ -17,3 +17,14 @@
 //= require_tree ./controllers
 //= require_tree ./directives
 //= require_tree ./services
+$(function(){
+	var source = new EventSource('home/events');
+
+	source.addEventListener ('message', function(e){
+		console.log('e', e);
+		var tweet = $.parseJSON(e.data);
+		
+		console.log('tweet', tweet);
+		$('#tweets').append($('<li>').text(tweet.text));
+	});
+});
