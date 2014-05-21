@@ -12,14 +12,3 @@ TweetStream::Client.new.track('nba') do |status|
 	tweet = Tweet.create(text: status.text)
 	$redis.publish('tweets.create', tweet.to_json)
 end
-=begin
-daemon = TweetStream::Daemon.new('tracker', :log_output => true)
-daemon.on_inited do
-  ActiveRecord::Base.connection.reconnect!
-  #ActiveRecord::Base.logger = Logger.new(File.open('log/stream.log', 'w+'))
-end
-daemon.track('nba') do |tweet|
-	puts "#{tweet.text}"
-  Status.create_from_tweet(tweet)
-end
-=end
