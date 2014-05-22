@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  get 'tweets/congress'
-	get 'home/events'
 
 	#get 'home/all_tweets/:twitter_ids', to: "home#all_tweets", as: :all_tweets
-	get 'home/all_tweets', to: "home#all_tweets", as: :all_tweets
+	get 'tweets/all_tweets', to: "tweets#all_tweets", as: :all_tweets
 
-	get 'home/all_tweets/:last_id', to: "home#refresh_tweets", as: :refresh_tweets
+	get 'tweets/all_tweets/:last_id', to: "tweets#refresh_tweets", as: :refresh_tweets
 
 	root "home#index"
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,6 +1,6 @@
 app.factory('Tweets', ['$http', '$resource',
 	function($http, $resource){
-		var url = '/home/all_tweets/:lastId';
+		var url = '/tweets/all_tweets/:lastId';
 		var tweetResource = $resource(url,{},  
 				{ get: {
 						method: 'GET',
