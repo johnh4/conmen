@@ -1,5 +1,5 @@
-app.controller('MainCtrl', ['$scope', 'GovTrack',
-	function($scope,GovTrack){
+app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets',
+	function($scope,GovTrack,Tweets){
 		
 		//get congress obj from govtrack
 		GovTrack.get(function(pols){
@@ -20,6 +20,13 @@ app.controller('MainCtrl', ['$scope', 'GovTrack',
 				});
 				$scope.twitIds = twitterIds;
 				console.log('$scope.twitIds', $scope.twitIds);
+
+				var twits = {};
+				twits.ids = twitterIds;
+				twits = JSON.stringify(twits);
+				Tweets.get({}, function(data){
+					console.log('data', data);	
+				});
 		});
 		$scope.test = 'scope test';					
 

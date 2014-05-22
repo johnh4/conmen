@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'puma', '~>2.8.2'
 
+gem 'twitter', '~>5.9.0'
 gem 'tweetstream', '~>2.6.1'
 gem 'angularjs-rails', '1.2.16'
 gem 'redis', '~>3.0.7'

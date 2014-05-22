@@ -262,4 +262,5 @@ DEPENDENCIES
   spring
   sqlite3
   tweetstream (~> 2.6.1)
+  twitter (~> 5.9.0)
   uglifier (>= 1.3.0)

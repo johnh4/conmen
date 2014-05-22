@@ -1,38 +1,37 @@
 class HomeController < ApplicationController
-	include ActionController::Live
 	
 	def index
 	end
-	def events
 
-		response.headers["Content-Type"] = "text/event-stream"
-		TweetStream::Client.new.track('nba') do |status|
-			puts "#{status.text}"
-			tweet = Tweet.create(text: status.text)
-			response.stream.write("data: #{tweet.to_json}\n\n")
-			#$redis.publish('tweets.create', tweet.to_json)
-		end
-		rescue IOError
-			logger.info "Stream closed"
-		ensure
-			response.stream.close
-=begin
-			
-		response.headers["Content-Type"] = "text/event-stream"
-		$redis.subscribe('tweets.create') do |on|
-			puts 'in tweets create sub on'
-			on.message do |event, data|
-				#puts "in on.message, event: #{event}, data: #{data}"
-				response.stream.write("data: #{data}\n\n")
-			end
-		end
-		rescue IOError
-			logger.info "Stream closed"
-		ensure
-			$redis.quit
-			response.stream.close
-=end
+	def events
 	end
 
+	def all_tweets
+		#get tweets from list
+		url = 'https://twitter.com/cspan/members-of-congress'
+		list = URI.parse(url)
+		listed_tweets =$client.list_timeline(list)
+		
+		#extract the information that we want
+		tweets = []
+		listed_tweets.each do |tweet|
+			new_tweet = {}
+			new_tweet[:name] = tweet.user.name
+			new_tweet[:screen_name] = tweet.user.screen_name
+			new_tweet[:text] = tweet.text
+			new_tweet[:created_at] = tweet.created_at
+			new_tweet[:profile_image_url] = tweet.user.profile_image_uri
+			new_tweet[:profile_background_image_url] = 
+			        tweet.user.profile_background_image_url
+			new_tweet[:retweet] = tweet.retweet?
+			if tweet.media?
+				new_tweet[:media] = tweet.media
+			end
+			tweets << new_tweet
+		end
+		
+		data = { tweets: tweets }
+		render json: data.to_json
+	end
 
 end

@@ -18,6 +18,7 @@
 //= require_tree ./directives
 //= require_tree ./services
 $(function(){
+	/*
 	var source = new EventSource('home/events');
 
 	source.addEventListener('message', function(e){
@@ -27,4 +28,5 @@ $(function(){
 		console.log('tweet', tweet);
 		$('#tweets').append($('<li>').text(tweet.text));
 	});
+	*/
 });
