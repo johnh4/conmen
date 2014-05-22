@@ -3,6 +3,10 @@
 <div>{{ allCong }}</div>
 in public
 <ul id="tweets">
+	<li ng-repeat="tweet in tweets">
+		{{ tweet.text }} <br>
+		- {{ tweet.name }}, {{ "@" + tweet.screen_name }}
+	</li>
 </ul>
 <ul class="names">
 	<li class="name" ng-repeat="con in congress">

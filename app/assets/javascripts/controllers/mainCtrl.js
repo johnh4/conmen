@@ -12,22 +12,36 @@ app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets',
 				});
 				$scope.allNames = names;
 
-				//get the twitter ids from the returned obj
-				var twitterIds = [];
-				pols.objects.forEach(function(pol){
-					var tID = pol.person.twitterid;
-					if(tID != null) twitterIds.push(tID);
-				});
-				$scope.twitIds = twitterIds;
-				console.log('$scope.twitIds', $scope.twitIds);
-
-				var twits = {};
-				twits.ids = twitterIds;
-				twits = JSON.stringify(twits);
-				Tweets.get({}, function(data){
-					console.log('data', data);	
-				});
 		});
+
+		var lastTweetId;
+		//get stack of tweets from congress list
+		Tweets.get({}, function(data){
+			$scope.tweets = data.tweets;
+			console.log('$scope.tweets', $scope.tweets);	
+
+		  lastTweetId = data.last_id;
+			console.log('lastTweetId initially set to', lastTweetId);
+			console.log("that tweet's text was", data.tweets[0].text);
+
+			window.setInterval(function(){
+				console.log('triggering refresh.');
+				Tweets.refresh({lastId: lastTweetId}, function(refreshed){
+					var newTweets = refreshed.tweets;
+					console.log('newTweets', newTweets);
+					console.log("refreshed.last_id", refreshed.last_id);
+					//set new lastTweetId
+					if(newTweets.length > 0) {
+						lastTweetId = refreshed.last_id;
+						for(var i = newTweets.length - 1; i >= 0; i--){
+							$scope.tweets.unshift(newTweets[i]);
+						}
+					}
+				});
+			}, 30000);
+		});
+
+
 		$scope.test = 'scope test';					
 
 	}
