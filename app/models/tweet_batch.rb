@@ -24,7 +24,6 @@ class TweetBatch
 		data
 	end
 
-	private
 
 		def latest_id(tweets)
 			tweets.max_by { |t| t[:id].to_i  }[:id] unless tweets.empty?
@@ -65,6 +64,7 @@ class TweetBatch
 			else
 				listed_tweets = $client.list_timeline(list)
 			end
+			puts listed_tweets.inspect
 			build_tweets(listed_tweets)
 		end
 

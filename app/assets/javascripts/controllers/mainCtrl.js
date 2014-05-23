@@ -1,6 +1,10 @@
 app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets',
 	function($scope,GovTrack,Tweets){
-		
+		$scope.$on('$viewContentLoaded', function() {
+			$('#map').vectorMap({
+				map: 'us_aea_en'
+			});
+    });
 		//get congress obj from govtrack
 		GovTrack.get(function(pols){
 				console.log('pols', pols);	
