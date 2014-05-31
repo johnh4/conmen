@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
 	get 'tweets/all_tweets/:last_id', to: "tweets#refresh_tweets", as: :refresh_tweets
 
+	get 'tweets/state_tweets/:state_congs', to: "tweets#state_tweets", as: :state_tweets
+
 	root "home#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -13,4 +13,10 @@ class TweetsController < ApplicationController
 		data = batch.new_tweets
 		render json: data.to_json
 	end
+
+	def state_tweets
+		batch = TweetBatch.new(nil, params[:state_congs])
+		data = batch.all_tweets
+		render json: data.to_json
+	end
 end
