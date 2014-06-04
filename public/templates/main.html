@@ -141,19 +141,27 @@
 <div id="tweets">
 	<div class="headline"><h2>{{ tweetHL }}</h2></div>
 	<div class="tweet" ng-repeat="tweet in tweets">
-		<span class="tweet-profile-image">
-			<img ng-src="{{ tweet.profile_image_url.path }}">
-		</span>
-		<div class="tweet-text">
-			{{ tweet.text }} <br>
+		<div class="row">
+			<div class="medium-2 columns">
+				<span class="tweet-profile-image">
+					<img ng-src="{{ tweet.profile_image_url.path }}">
+					<br>
+					<span class="tweet-sn">{{ "@" + tweet.screen_name }}</span>
+				</span>
+			</div>
+			<div class="medium-10 columns">
+				<div class="tweet-text">
+					{{ tweet.text }} 
+				</div>
+				<div class="tweet-media" ng-repeat="media in tweet.media">
+					<img ng-src="{{ media.media_url }}">
+				</div>
+				<span class="tweet-byline">
+					- {{ tweet.name }}, {{ "@" + tweet.screen_name }}
+				</span>
+				<span class="time-ago" am-time-ago="tweet.created_at"></span>
+			</div>
 		</div>
-		<div class="tweet-media" ng-repeat="media in tweet.media">
-			<img ng-src="{{ media.media_url }}">
-		</div>
-		<div class="tweet-byline">
-			- {{ tweet.name }}, {{ "@" + tweet.screen_name }}
-		</div>
-		<span am-time-ago="tweet.created_at"></span>
 	</div>
 </div>
 <!--

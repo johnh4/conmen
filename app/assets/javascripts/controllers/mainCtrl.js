@@ -28,7 +28,7 @@ app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets', 'Sunlight',
 					console.log('$scope.currentState', $scope.currentState);
 					var stateCongTwitterIDs = getStateCongs($scope.currentState);
 					console.log('stateCongTwitterIDs', stateCongTwitterIDs);
-					$scope.tweetHL = "Tweets from Members of Congress representing "
+					$scope.tweetHL = "Tweets from Members of Congress Representing "
 												 + $scope.currentState;
 
 					// make request for tweet state data

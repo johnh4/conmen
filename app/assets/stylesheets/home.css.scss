@@ -110,19 +110,33 @@ $red: rgb(224,22,43);
 	width: 100%;
 	font-family: 'Open Sans Condensed', 'sans-serif';
 	font-weight: 300;
+	.tweet-profile-image {
+		float: right;
+	}
 	.tweet-profile-image img {
+		float: right;
 		width: 48px;
+		box-shadow: 0px 0px 2px #000;
 	}
 	.tweet-media {
 		img {
 			max-width: 250px;
+			box-shadow: 0px 0px 2px #000;
 		}
 	}
 	.tweet {
 		margin-bottom: 20px;
+		.tweet-text {
+			//line-height: 1px;
+			//display: inline-block;
+		}
 	}
 	.tweet-byline {
 		font-weight: bold;
+	}
+	.time-ago {
+		font-style: italic;
+		color: black;
 	}
 }
 .headline h2 {
