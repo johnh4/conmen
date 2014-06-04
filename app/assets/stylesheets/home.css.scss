@@ -103,3 +103,31 @@ $red: rgb(224,22,43);
 	float: right;
 	margin-left: 10px;
 }
+/*********** TWEETS **************/
+#tweets {
+	background: $red;
+	color: white;
+	width: 100%;
+	font-family: 'Open Sans Condensed', 'sans-serif';
+	font-weight: 300;
+	.tweet-profile-image img {
+		width: 48px;
+	}
+	.tweet-media {
+		img {
+			max-width: 250px;
+		}
+	}
+	.tweet {
+		margin-bottom: 20px;
+	}
+	.tweet-byline {
+		font-weight: bold;
+	}
+}
+.headline h2 {
+  color: white;	
+	text-align: center;
+	font-family: 'Open Sans Condensed', 'sans-serif';
+	font-weight: 300;
+}

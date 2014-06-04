@@ -6,7 +6,7 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "conmen" %></title>
 
-    <%= stylesheet_link_tag    "application" %>
+    <%= stylesheet_link_tag    "application","http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>

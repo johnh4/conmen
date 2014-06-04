@@ -138,12 +138,23 @@
 -->
 
 <div id="clearfix">.</div>
-<ul id="tweets">
-	<li ng-repeat="tweet in tweets">
-		{{ tweet.text }} <br>
-		- {{ tweet.name }}, {{ "@" + tweet.screen_name }}
-	</li>
-</ul>
+<div id="tweets">
+	<div class="headline"><h2>{{ tweetHL }}</h2></div>
+	<div class="tweet" ng-repeat="tweet in tweets">
+		<span class="tweet-profile-image">
+			<img ng-src="{{ tweet.profile_image_url.path }}">
+		</span>
+		<div class="tweet-text">
+			{{ tweet.text }} <br>
+		</div>
+		<div class="tweet-media" ng-repeat="media in tweet.media">
+			<img ng-src="{{ media.media_url }}">
+		</div>
+		<div class="tweet-byline">
+			- {{ tweet.name }}, {{ "@" + tweet.screen_name }}
+		</div>
+	</div>
+</div>
 <!--
 <ul class="names">
 	<li class="name" ng-repeat="con in congress">

@@ -5,6 +5,7 @@ app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets', 'Sunlight',
 		$scope.currentCon = 0;
 		$scope.stateCongs = [];
 		$scope.showPhone = false;
+		$scope.tweetHL = "Tweets from Members of Congress"
 		$scope.$on('$viewContentLoaded', function() {
 			$('#map').vectorMap({
 				map: 'us_aea_en',
@@ -27,10 +28,13 @@ app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets', 'Sunlight',
 					console.log('$scope.currentState', $scope.currentState);
 					var stateCongTwitterIDs = getStateCongs($scope.currentState);
 					console.log('stateCongTwitterIDs', stateCongTwitterIDs);
+					$scope.tweetHL = "Tweets from Members of Congress representing "
+												 + $scope.currentState;
 
 					// make request for tweet state data
 					Tweets.state({ stateCongs: stateCongTwitterIDs }, function(data){
 						console.log('data.tweets', data.tweets);
+						formatTweets(data.tweets);
 						$scope.tweets = data.tweets;
 						useState = true;
 
@@ -111,7 +115,19 @@ app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets', 'Sunlight',
 
 		var lastTweetId;
 		//get stack of tweets from congress list
+		function formatTweets(tweets){
+			tweets.forEach(function(tweet){
+				tweet.profile_image_url.path = 
+									tweet.profile_image_url.scheme +
+									'://'+ tweet.profile_image_url.host + 
+									tweet.profile_image_url.path 
+				tweet.profile_image_url.path = 
+									tweet.profile_image_url.path.replace(/_normal/,"_bigger");
+				//console.log('rep', rep);
+			});
+		}
 		Tweets.get({}, function(data){
+			formatTweets(data.tweets);
 			$scope.tweets = data.tweets;
 			console.log('$scope.tweets', $scope.tweets);	
 
@@ -124,6 +140,7 @@ app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets', 'Sunlight',
 				//if (useState === false){
 					console.log('triggering refresh.');
 					Tweets.refresh({lastId: lastTweetId}, function(refreshed){
+						formatTweets(refreshed.tweets);
 						var newTweets = refreshed.tweets;
 						console.log('newTweets', newTweets);
 						console.log("refreshed.last_id", refreshed.last_id);
