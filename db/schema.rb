@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521000717) do
+ActiveRecord::Schema.define(version: 20140603015538) do
+
+  create_table "conmen", force: true do |t|
+    t.string   "chamber"
+    t.integer  "govtrack_id"
+    t.decimal  "ideology",          precision: 6, scale: 5
+    t.decimal  "leadership",        precision: 6, scale: 5
+    t.string   "name"
+    t.string   "party"
+    t.string   "description"
+    t.integer  "introduced_bills"
+    t.integer  "cosponsored_bills"
+    t.integer  "unique_cosponsors"
+    t.integer  "total_cosponsors"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tweets", force: true do |t|
     t.string   "text"

@@ -1,3 +1,105 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*********** GENERAL **************/
+$blue:  rgb(0,82,165);
+$red: rgb(224,22,43);
+
+/*********** TOPBAR **************/
+.top-bar {
+	background: $blue;
+	a {
+		font-style: italic;
+	}
+}
+.state-congs {
+	li.state-cong {
+		float: right;
+		&:last-child {
+		}
+	}
+}
+#clearfix {
+	clear: both;
+	display: hidden;
+	position: relative;
+	left: -5000px;
+}
+#govtrack {
+	display: none;
+}
+
+/*********** MAP **************/
+#map {
+	//width: 100%;
+	height: 400px;
+}
+/*********** CONGRESSMEN LIST **************/
+#state-cons {
+	background: white;
+}
+.image-ul {
+	//width: 100%;
+	//height: 150px;
+	overflow: scroll;
+	list-style: none;
+	text-align: center;
+	display: table;
+	margin: 0 auto;
+	li {
+		float: right;
+		display: inline-block;
+		margin: 0 auto;
+		//display: table-cell;
+		img {
+			width: 50px;
+			margin: 0 auto;
+			//display: block;
+		}
+	}
+}
+#con-details {
+	margin-top: 10px;
+	.con-name {
+		color: $red;
+		font-weight: bold;
+	}
+	img {
+		margin-top: 10px;
+		width: 100%;
+		box-shadow: 0px 0px 1px #000;
+	}
+}
+
+.social-icons {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	//text-shadow: 0 0 0.5px #000;
+	i {
+		font-size: 30px;
+		margin-left: 2px;
+	}
+}
+.fi-social-facebook, .fi-social-twitter, .fi-mail {
+	color: $blue;
+}
+.fi-social-youtube, .fi-web, .fi-telephone {
+	color: $red;
+}
+.fi-telephone {
+	cursor: pointer;
+}
+.links {
+	list-style: none;
+	display: none;
+}
+/*********** SHOW **************/
+.vote {
+	margin-bottom: 15px;
+}
+.similar {
+	float: right;
+	margin-left: 10px;
+}

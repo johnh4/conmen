@@ -1,0 +1,23 @@
+<div>
+	<a ng-href="#/">home</a><br>
+	<img ng-src="http://www.govtrack.us/data/photos/
+									{{govtrack_id}}-200px.jpeg">
+	<div id="ideology">{{ ideology }}</div>
+	<div class ="vote" ng-repeat="vote in votes">
+		value: {{ vote.option.value }} <br>
+		question: {{ vote.vote.question }} <br>
+		question_details: {{ vote.vote.question_details }} <br>
+		result: {{ vote.vote.result }} <br>
+		created: {{ vote.vote.created }} <br>
+	</div>
+	<div id="similar">
+		<h3>Similar to(by bill sponsorship):</h3>
+		<div class="similar" ng-repeat="sim in similar">
+			<a ng-href="#/congress/{{sim.govtrack_id}}">
+				{{ sim.name }}<br>
+				<img ng-src="http://www.govtrack.us/data/photos/
+										{{sim.govtrack_id}}-100px.jpeg">
+			</a>
+		</div>
+	</div>
+</div>

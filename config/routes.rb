@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'conmen/:govtrack_id/ideology', to: "conmen#ideology", as: :ideology
+  get 'conmen/:govtrack_id/similar', to: "conmen#similar", as: :similar
+
 	#get 'home/all_tweets/:twitter_ids', to: "home#all_tweets", as: :all_tweets
 	get 'tweets/all_tweets', to: "tweets#all_tweets", as: :all_tweets
 
 	get 'tweets/all_tweets/:last_id', to: "tweets#refresh_tweets", as: :refresh_tweets
 
 	get 'tweets/state_tweets/:state_congs', to: "tweets#state_tweets", as: :state_tweets
+	get 'tweets/state_tweets/:state_congs/:last_id', to: "tweets#refresh_state_tweets", as: :refresh_state_tweets
 
 	root "home#index"
   # The priority is based upon order of creation: first created -> highest priority.

@@ -6,7 +6,6 @@ class TweetBatch
 
 	def initialize(last_id = nil, state = nil)
 		@last_id = last_id
-		#@state_congs = ["ChuckSchumer", "RepChrisCollins", "RepSeanMaloney", "RepJeffries", "RepGraceMeng"]
 		@state_congs = state
 		@options = {}
 		@options[:count] = COUNT

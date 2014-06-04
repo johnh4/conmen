@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'puma', '~>2.8.2'
+gem 'httparty'
 
 gem 'twitter', '~>5.9.0'
 gem 'tweetstream', '~>2.6.1'

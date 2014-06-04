@@ -13,6 +13,7 @@
 //= require jquery
 //= require angular
 //= require jquery_ujs
+//= require foundation
 //= require main
 //= require_tree ./controllers
 //= require_tree ./directives
@@ -32,3 +33,5 @@ $(function(){
 	});
 	*/
 });
+
+$(function(){ $(document).foundation(); });

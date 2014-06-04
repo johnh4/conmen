@@ -1,14 +1,150 @@
-<h4>main.html</h4>
-<div>{{ test }}</div>
-<div>{{ allCong }}</div>
-in public
-<div id="map" style="width: 600px; height: 400px"></div>
+<div class="row">
+	<div id="map" class="large-9 medium-9 columns"></div>
+	<div id="state-cons" class="large-3 medium-3 columns">
+		<div id="con-details" ng-repeat="stateCon in stateSunCons"
+		 ng-show="currentCon === $index">
+			<a class="con-name" ng-href="#/congress/{{stateCon.govtrack_id}}">
+				{{ stateCon.title +' '+ stateCon.first_name +' '+ stateCon.last_name }}
+				{{ '[' + stateCon.party + '-' + stateCon.state + ']' }}
+				<img ng-src="http://www.govtrack.us/data/photos/
+										{{stateCon.govtrack_id}}.jpeg">
+			</a>
+			<div class="social-icons">
+				<a ng-href="http://www.facebook.com/{{stateCon.facebook_id}}">
+					<i class="fi-social-facebook"></i>
+				</a>
+				<a ng-href="http://www.youtube.com/{{stateCon.youtube_id}}">
+					<i class="fi-social-youtube"></i>
+				</a>
+				<a ng-href="http://www.twitter.com/{{stateCon.twitter_id}}">
+					<i class="fi-social-twitter"></i>
+				</a>
+				<a ng-href="{{stateCon.website}}">
+					<i class="fi-web"></i>
+				</a>
+				<a ng-href="{{stateCon.contact_form}}">
+					<i class="fi-mail"></i>
+				</a>
+				<span id="phone" ng-click="togglePhone()">
+					<i class="fi-telephone"></i>
+				</span>
+			</div>
+			<div id="phone" ng-show="showPhone">
+				{{ stateCon.phone }}
+			</div>
+			<ul class="links">
+				<li><!--website:
+					-->
+					<a ng-href="{{stateCon.website}}">
+						website
+					</a>
+				</li>
+				<li>phone: {{stateCon.phone}}</li>
+				<li>
+					<a ng-href="{{stateCon.contact_form}}">
+						contact form
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 medium-12 columns">
+			<ul class="image-ul">
+				<li class="state-con" ng-repeat="stateCon in stateSunCons">
+					<!--
+					{{ stateCon.title +' '+ stateCon.first_name + ' ' + stateCon.last_name }}
+					{{ '[' + stateCon.party + '-' + stateCon.state + ']' }}
+					-->
+					<img ng-src="http://www.govtrack.us/data/photos/
+											{{stateCon.govtrack_id}}-100px.jpeg" 
+							 ng-click="setCurrentCon($index)" alt="{{stateCon.last_name}}">
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!--
+<div id="bios">
+	<ul class="state-congs">
+		<li class="state-cong" ng-repeat="sunCon in stateSunCons">
+			<a ng-href="#/congress/{{sunCon.govtrack_id}}">
+				{{ sunCon.title + ' ' + sunCon.first_name + ' ' + sunCon.last_name }}
+				{{ '[' + sunCon.party + '-' + sunCon.state + ']' }}
+			</a>
+			<br>
+			<img ng-src="http://www.govtrack.us/data/photos/
+									{{sunCon.govtrack_id}}-100px.jpeg">
+			<ul class="links">
+				<div class="social-icons">
+					<a ng-href="http://www.facebook.com/{{sunCon.facebook_id}}">
+						<i class="fi-social-facebook"></i>
+					</a>
+					<a ng-href="http://www.youtube.com/{{sunCon.youtube_id}}">
+						<i class="fi-social-youtube"></i>
+					</a>
+					<a ng-href="http://www.twitter.com/{{sunCon.twitter_id}}">
+						<i class="fi-social-twitter"></i>
+					</a>
+				</div>
+				<li>website:
+					<a ng-href="{{sunCon.website}}">
+						{{sunCon.website}}
+					</a>
+				</li>
+				<li>phone: {{sunCon.phone}}</li>
+				<li>contact form:
+					<a ng-href="{{sunCon.contact_form}}">
+						contact
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<div id="govtrack">
+	<ul class="state-congs">
+		<li class="state-cong" ng-repeat="stateCon in stateCongs">
+			{{ stateCon.person.name }} - 
+			<br>
+			<img ng-src="http://www.govtrack.us/data/photos/
+									{{stateCon.person.id}}-200px.jpeg">
+			<ul class="links">
+				<li>facebook:</li>
+				<li>twitter:
+					<a ng-href="http://www.twitter.com/{{stateCon.person.twitterid}}">
+						@{{ stateCon.person.twitterid }}
+					</a>
+				</li>
+				<li>youtube:
+					<a ng-href="http://www.youtube.com/{{stateCon.person.youtubeid}}">
+						{{ stateCon.person.youtubeid }}
+					</a>
+				</li>
+				<li>website:
+					<a ng-href="{{stateCon.website}}">
+						{{stateCon.website}}
+					</a>
+				</li>
+				<li>phone: {{stateCon.phone}}</li>
+				<li>fax:</li>
+				<li>email:</li>
+				<li>webform:</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+-->
+
+<div id="clearfix">.</div>
 <ul id="tweets">
 	<li ng-repeat="tweet in tweets">
 		{{ tweet.text }} <br>
 		- {{ tweet.name }}, {{ "@" + tweet.screen_name }}
 	</li>
 </ul>
+<!--
 <ul class="names">
 	<li class="name" ng-repeat="con in congress">
 		{{ con.person.name }} - 
@@ -17,3 +153,4 @@ in public
 		</a>
 	</li>
 </ul>
+-->
