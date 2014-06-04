@@ -182,5 +182,9 @@ app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets', 'Sunlight',
 		$scope.togglePhone = function(){
 			$scope.showPhone = !$scope.showPhone;
 		}
+		$scope.message = {
+			 text: 'hello world!',
+			 time: new Date()
+		};
 	}
 ]);

@@ -1,4 +1,4 @@
-var app = angular.module('ConMen', ['ngRoute','ngResource']);
+var app = angular.module('ConMen', ['ngRoute','ngResource','angularMoment']);
 
 app.config(['$routeProvider', function($routeProvider){
 	$routeProvider.when('/',{
