@@ -138,7 +138,7 @@
 -->
 
 <div id="clearfix">.</div>
-<div id="tweets">
+<div id="tweets" ng-show="{{ currentView === 0 }}">
 	<div class="headline"><h2>{{ tweetHL }}</h2></div>
 	<div class="tweet" ng-repeat="tweet in tweets">
 		<div class="row">
@@ -165,98 +165,110 @@
 	</div>
 </div>
 
-<div id="votes">
-	<div ng-repeat="vote in votes">
-		<ul>
-			<li>
-				description: {{ vote.description }}
-			</li>
-			<li>
-				question: {{ vote.question }}
-			</li>
-			<li>
-				result: {{ vote.result }}
-			</li>
-			<li>
-				time: {{ vote.time }}
-			</li>
-			<li>
-				date: {{ vote.date }}
-			</li>
-			<li>
-				<ul>
-					total:
-					<li>
-						yes: {{ vote.total.yes }}
-					</li>
-					<li>
-						no: {{ vote.total.no }}
-					</li>
-					<li>
-						not_voting: {{ vote.total.not_voting }}
-					</li>
-					<li>
-						present: {{ vote.total.present }}
-					</li>
-				</ul>
-			</li>
-			<li>
-				<ul>
-					democrats:
-					<li>
-						supported by most?: {{ vote.democratic.majority_position }}
-					</li>
-					<li>
-						yes: {{ vote.democratic.yes }}
-					</li>
-					<li>
-						no: {{ vote.democratic.no }}
-					</li>
-					<li>
-						not_voting: {{ vote.democratic.not_voting }}
-					</li>
-					<li>
-						present: {{ vote.democratic.present }}
-					</li>
-				</ul>
-			</li>
-			<li>
-				<ul>
-					republican:
-					<li>
-						supported by most?: {{ vote.republican.majority_position }}
-					</li>
-					<li>
-						yes: {{ vote.republican.yes }}
-					</li>
-					<li>
-						no: {{ vote.republican.no }}
-					</li>
-					<li>
-						not_voting: {{ vote.republican.not_voting }}
-					</li>
-					<li>
-						present: {{ vote.republican.present }}
-					</li>
-				</ul>
-			</li>
-			<li>
-				<ul>
-					independents:
-					<li>
-						yes: {{ vote.independent.yes }}
-					</li>
-					<li>
-						no: {{ vote.independent.no }}
-					</li>
-					<li>
-						not_voting: {{ vote.independent.not_voting }}
-					</li>
-					<li>
-						present: {{ vote.independent.present }}
-					</li>
-				</ul>
-			</li>
-		</ul>
+<div id="votes" ng-show="{{ currentView === 1 }}">
+	<div class="vote" ng-repeat="vote in votes">
+		<div class="row">
+			<div class="small-8 medium-8 large-8 columns">
+				<h4 class="description">{{ vote.description }}</h4>
+			</div>
+			<div class="support small-4 medium-4 large-4 columns">
+				<p>
+					Supported by {{ vote.democratic.percent }} of democrats<br>
+					Supported by {{ vote.republican.percent }} of republicans
+				</p>
+			</div>
+		</div>
+		<div class="row vote-info">
+			<div class="vote-time small-4 medium-4 large-4 columns">
+				<h5>Vote Cast</h5>
+				{{vote.time }} on {{ vote.date }}
+			</div>
+			<div class="vote-question small-4 medium-4 large-4 columns">
+				<h5>Question</h5>
+				{{ vote.question }}
+			</div>
+			<div class="vote-result small-4 medium-4 large-4 columns">
+				<h5>Result</h5>
+				{{ vote.result }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="vote-total small-3 medium-3 large-3 columns">
+				<h5 class="vote-party">Total</h5>
+				<div class="vote-cast">
+					<span class="yes">
+						Yes: {{ vote.total.yes }}
+					</span>
+					<span class="no">
+						No: {{ vote.total.no }}
+					</span>
+				</div>
+				<div class="vote-not-cast">
+					<span class="not-voting">
+						Not Voting: {{ vote.total.not_voting }}
+					</span>
+					<span class="present">
+						Present: {{ vote.total.present }}
+					</span>
+				</div>
+			</div>
+			<div class="vote-democrats small-3 medium-3 large-3 columns">
+				<h5 class="vote-party">Democrats</h5>
+				<div class="vote-cast">
+					<span class="yes">
+						Yes: {{ vote.democratic.yes }}
+					</span>
+					<span class="no">
+						No: {{ vote.democratic.no }}
+					</span>
+				</div>
+				<div class="vote-not-cast">
+					<span class="not-voting">
+						Not Voting: {{ vote.democratic.not_voting }}
+					</span>
+					<span class="present">
+						Present: {{ vote.democratic.present }}
+					</span>
+				</div>
+			</div>
+			<div class="vote-republicans small-3 medium-3 large-3 columns">
+				<h5 class="vote-party">Republicans</h5>
+				<div class="vote-cast">
+					<span class="yes">
+						Yes: {{ vote.republican.yes }}
+					</span>
+					<span class="no">
+						No: {{ vote.republican.no }}
+					</span>
+				</div>
+				<div class="vote-not-cast">
+					<span class="not-voting">
+						Not Voting: {{ vote.republican.not_voting }}
+					</span>
+					<span class="present">
+						Present: {{ vote.republican.present }}
+					</span>
+				</div>
+			</div>
+			<div class="vote-independents small-3 medium-3 large-3 columns">
+				<h5 class="vote-party">Independents</h5>
+				<div class="vote-cast">
+					<span class="yes">
+						Yes: {{ vote.independent.yes }}
+					</span>
+					<span class="no">
+						No: {{ vote.independent.no }}
+					</span>
+				</div>
+				<div class="vote-not-cast">
+					<span class="not-voting">
+						Not Voting: {{ vote.independent.not_voting }}
+					</span>
+					<span class="present">
+						Present: {{ vote.independent.present }}
+					</span>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

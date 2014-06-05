@@ -6,6 +6,7 @@ app.controller('MainCtrl', ['$scope','GovTrack','Tweets','Sunlight','NYTimes',
 		$scope.stateCongs = [];
 		$scope.showPhone = false;
 		$scope.tweetHL = "Tweets from Members of Congress"
+		$scope.currentView = 1;
 
 		$scope.$on('$viewContentLoaded', function() {
 			$('#map').vectorMap({
@@ -187,8 +188,30 @@ app.controller('MainCtrl', ['$scope','GovTrack','Tweets','Sunlight','NYTimes',
 		});
 		*/
 
+		// give the votes a supported by party percentage
+		function formatVotes(votes){
+			votes.forEach(function(vote){
+				var percent = parseInt(vote.democratic.yes) / 
+											(parseInt(vote.democratic.yes) + 
+											parseInt(vote.democratic.no) + 
+											parseInt(vote.democratic.not_voting) + 
+											parseInt(vote.democratic.present)) * 100;
+				vote.democratic.percent = "" + Math.round(percent) + "%";
+				percent = parseInt(vote.republican.yes) / 
+											(parseInt(vote.republican.yes) + 
+											parseInt(vote.republican.no) + 
+											parseInt(vote.republican.not_voting) + 
+											parseInt(vote.republican.present)) * 100;
+				vote.republican.percent = "" + Math.round(percent) + "%";
+				vote.time = Date.parseExact(vote.time, "HH:mm:ss").toString("hh:mm tt");
+				vote.date = Date.parseExact(vote.date, 
+												"yyyy-MM-dd").toString("MMMM dS, yyyy");
+			});
+		}
+
 		NYTimes.votes({}, function(data){
 			console.log('nyt vote data', data);
+			formatVotes(data.results.votes);
 			$scope.votes = data.results.votes;
 		});
 		

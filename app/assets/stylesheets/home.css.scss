@@ -127,8 +127,6 @@ $red: rgb(224,22,43);
 	.tweet {
 		margin-bottom: 20px;
 		.tweet-text {
-			//line-height: 1px;
-			//display: inline-block;
 		}
 	}
 	.tweet-byline {
@@ -144,4 +142,44 @@ $red: rgb(224,22,43);
 	text-align: center;
 	font-family: 'Open Sans Condensed', 'sans-serif';
 	font-weight: 300;
+}
+/*********** VOTES **************/
+#votes {
+	background: $red;
+	color: white;
+	font-family: 'Open Sans Condensed', 'sans-serif';
+	font-weight: 300;
+	.description {
+		color: white;
+	}
+	.vote-time {
+		color: black;
+		margin-bottom: 10px;
+	}
+	.support p {
+		//color: $blue;
+		//font-weight: bold;
+	}
+	.yes {
+		//margin: 0px 10px;
+	}
+	.vote-cast {
+
+	}
+	.vote-not-cast {
+		color: #fefefe;
+	}
+	.vote-party, .vote-info {
+		text-align: center;
+	}
+	.no, .present {
+		float: right;
+		text-align: right;
+	}
+	.vote {
+		//margin-bottom: 50px;
+		border-bottom: 1px solid rgba(50,50,50,.3);
+		padding-bottom: 40px;
+		padding-top: 15px;
+	}
 }
