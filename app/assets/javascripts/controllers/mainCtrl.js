@@ -1,11 +1,12 @@
-app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets', 'Sunlight',
-	function($scope,GovTrack,Tweets,Sunlight){
+app.controller('MainCtrl', ['$scope','GovTrack','Tweets','Sunlight','NYTimes',
+	function($scope,GovTrack,Tweets,Sunlight,NYTimes){
 		var useState = false;
 		var intervals = [];
 		$scope.currentCon = 0;
 		$scope.stateCongs = [];
 		$scope.showPhone = false;
 		$scope.tweetHL = "Tweets from Members of Congress"
+
 		$scope.$on('$viewContentLoaded', function() {
 			$('#map').vectorMap({
 				map: 'us_aea_en',
@@ -123,6 +124,7 @@ app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets', 'Sunlight',
 									tweet.profile_image_url.path 
 				tweet.profile_image_url.path = 
 									tweet.profile_image_url.path.replace(/_normal/,"_bigger");
+				tweet.text = tweet.text.replace(/\.@/,". @");
 				//console.log('rep', rep);
 			});
 		}
@@ -178,6 +180,18 @@ app.controller('MainCtrl', ['$scope', 'GovTrack', 'Tweets', 'Sunlight',
 				});
 			}
 		});
+		/*
+		Sunlight.votes({ page: '1' }, function(data){
+			console.log('sundlight vote data', data);
+			$scope.votes = data.results;
+		});
+		*/
+
+		NYTimes.votes({}, function(data){
+			console.log('nyt vote data', data);
+			$scope.votes = data.results.votes;
+		});
+		
 		$scope.test = 'scope test';					
 		$scope.togglePhone = function(){
 			$scope.showPhone = !$scope.showPhone;

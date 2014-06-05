@@ -18,6 +18,7 @@
 //= require_tree ./controllers
 //= require_tree ./directives
 //= require_tree ./services
+//= require_tree ./filters
 //= require_tree ./jvector_map
 $(function(){
 	console.log('in app js.');

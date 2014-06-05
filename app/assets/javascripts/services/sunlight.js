@@ -5,17 +5,17 @@ app.factory('Sunlight', ['$http', '$resource',
 				{
 					action: 'legislators',
 					apikey: 'ffa2e6cde3af41d7b500ea5ab166f59c',
-					per_page: '50',
-					in_office: 'true',
+					per_page: '50'
 				},  
 				{ all: {
 						method: 'GET',
-						params: { page: "@page" },
+						params: { in_office: 'true',page: "@page" },
 						headers: {'Content-Type': 'application/json'}
 					},
-					page: {
+					votes: {
 						method: 'GET',
-						params: { page: "@page" },
+						action: 'votes',
+						params: { action: 'votes',page: "@page", order: "voted_at" },
 						headers: { 'Content-Type': 'application/json' }
 					}
 				});

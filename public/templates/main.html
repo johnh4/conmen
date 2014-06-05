@@ -142,16 +142,16 @@
 	<div class="headline"><h2>{{ tweetHL }}</h2></div>
 	<div class="tweet" ng-repeat="tweet in tweets">
 		<div class="row">
-			<div class="medium-2 columns">
+			<div class="small-2 medium-2 large-2 columns">
 				<span class="tweet-profile-image">
 					<img ng-src="{{ tweet.profile_image_url.path }}">
 					<br>
 					<span class="tweet-sn">{{ "@" + tweet.screen_name }}</span>
 				</span>
 			</div>
-			<div class="medium-10 columns">
+			<div class="small-10 medium-10 large-10 columns">
 				<div class="tweet-text">
-					{{ tweet.text }} 
+					<div ng-bind-html="tweet.text | linky"></div>
 				</div>
 				<div class="tweet-media" ng-repeat="media in tweet.media">
 					<img ng-src="{{ media.media_url }}">
@@ -164,13 +164,99 @@
 		</div>
 	</div>
 </div>
-<!--
-<ul class="names">
-	<li class="name" ng-repeat="con in congress">
-		{{ con.person.name }} - 
-		<a ng-href="http://www.twitter.com/{{con.person.twitterid}}">
-			@{{ con.person.twitterid }}
-		</a>
-	</li>
-</ul>
--->
+
+<div id="votes">
+	<div ng-repeat="vote in votes">
+		<ul>
+			<li>
+				description: {{ vote.description }}
+			</li>
+			<li>
+				question: {{ vote.question }}
+			</li>
+			<li>
+				result: {{ vote.result }}
+			</li>
+			<li>
+				time: {{ vote.time }}
+			</li>
+			<li>
+				date: {{ vote.date }}
+			</li>
+			<li>
+				<ul>
+					total:
+					<li>
+						yes: {{ vote.total.yes }}
+					</li>
+					<li>
+						no: {{ vote.total.no }}
+					</li>
+					<li>
+						not_voting: {{ vote.total.not_voting }}
+					</li>
+					<li>
+						present: {{ vote.total.present }}
+					</li>
+				</ul>
+			</li>
+			<li>
+				<ul>
+					democrats:
+					<li>
+						supported by most?: {{ vote.democratic.majority_position }}
+					</li>
+					<li>
+						yes: {{ vote.democratic.yes }}
+					</li>
+					<li>
+						no: {{ vote.democratic.no }}
+					</li>
+					<li>
+						not_voting: {{ vote.democratic.not_voting }}
+					</li>
+					<li>
+						present: {{ vote.democratic.present }}
+					</li>
+				</ul>
+			</li>
+			<li>
+				<ul>
+					republican:
+					<li>
+						supported by most?: {{ vote.republican.majority_position }}
+					</li>
+					<li>
+						yes: {{ vote.republican.yes }}
+					</li>
+					<li>
+						no: {{ vote.republican.no }}
+					</li>
+					<li>
+						not_voting: {{ vote.republican.not_voting }}
+					</li>
+					<li>
+						present: {{ vote.republican.present }}
+					</li>
+				</ul>
+			</li>
+			<li>
+				<ul>
+					independents:
+					<li>
+						yes: {{ vote.independent.yes }}
+					</li>
+					<li>
+						no: {{ vote.independent.no }}
+					</li>
+					<li>
+						not_voting: {{ vote.independent.not_voting }}
+					</li>
+					<li>
+						present: {{ vote.independent.present }}
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>

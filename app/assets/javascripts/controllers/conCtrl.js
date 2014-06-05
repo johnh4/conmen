@@ -17,6 +17,5 @@ app.controller('ConCtrl', ['$scope', 'GovTrack', 'Tweets', '$routeParams','Conse
 				$scope.similar = data.conmen;
 			});
 		});
-
 	}
 ]);
