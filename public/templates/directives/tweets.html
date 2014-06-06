@@ -1,0 +1,26 @@
+<div id="tweets" ng-show="viewSelected('tweets')">
+	<div class="headline"><h2>{{ tweetHL }}</h2></div>
+	<div class="tweet" ng-repeat="tweet in tweets">
+		<div class="row">
+			<div class="small-2 medium-2 large-2 columns">
+				<span class="tweet-profile-image">
+					<img ng-src="{{ tweet.profile_image_url.path }}">
+					<br>
+					<span class="tweet-sn">{{ "@" + tweet.screen_name }}</span>
+				</span>
+			</div>
+			<div class="small-10 medium-10 large-10 columns">
+				<div class="tweet-text">
+					<div ng-bind-html="tweet.text | linky"></div>
+				</div>
+				<div class="tweet-media" ng-repeat="media in tweet.media">
+					<img ng-src="{{ media.media_url }}">
+				</div>
+				<span class="tweet-byline">
+					- {{ tweet.name }}, {{ "@" + tweet.screen_name }}
+				</span>
+				<span class="time-ago" am-time-ago="tweet.created_at"></span>
+			</div>
+		</div>
+	</div>
+</div>

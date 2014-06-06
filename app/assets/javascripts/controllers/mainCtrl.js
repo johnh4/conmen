@@ -6,7 +6,17 @@ app.controller('MainCtrl', ['$scope','GovTrack','Tweets','Sunlight','NYTimes',
 		$scope.stateCongs = [];
 		$scope.showPhone = false;
 		$scope.tweetHL = "Tweets from Members of Congress"
-		$scope.currentView = 1;
+		$scope.currentView = "tweets";
+
+		$scope.setCurrentView = function(view){
+			console.log('in setCurrentView');
+			$scope.currentView = view;
+			console.log('$scope.currentView', $scope.currentView);
+		}
+
+		$scope.viewSelected = function(view){
+			return $scope.currentView == view;
+		}
 
 		$scope.$on('$viewContentLoaded', function() {
 			$('#map').vectorMap({
@@ -209,6 +219,7 @@ app.controller('MainCtrl', ['$scope','GovTrack','Tweets','Sunlight','NYTimes',
 			});
 		}
 
+		// get recent vote data from the nytimes api
 		NYTimes.votes({}, function(data){
 			console.log('nyt vote data', data);
 			formatVotes(data.results.votes);
@@ -219,9 +230,5 @@ app.controller('MainCtrl', ['$scope','GovTrack','Tweets','Sunlight','NYTimes',
 		$scope.togglePhone = function(){
 			$scope.showPhone = !$scope.showPhone;
 		}
-		$scope.message = {
-			 text: 'hello world!',
-			 time: new Date()
-		};
 	}
 ]);

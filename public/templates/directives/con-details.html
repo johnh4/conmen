@@ -1,0 +1,33 @@
+<!-- individual congressman info: pic and links -->
+<div id="con-details" ng-repeat="stateCon in stateSunCons"
+ ng-show="currentCon === $index">
+	<a class="con-name" ng-href="#/congress/{{stateCon.govtrack_id}}">
+		{{ stateCon.title +' '+ stateCon.first_name +' '+ stateCon.last_name }}
+		{{ '[' + stateCon.party + '-' + stateCon.state + ']' }}
+		<img ng-src="http://www.govtrack.us/data/photos/
+								{{stateCon.govtrack_id}}.jpeg">
+	</a>
+	<div class="social-icons">
+		<a ng-href="http://www.facebook.com/{{stateCon.facebook_id}}">
+			<i class="fi-social-facebook"></i>
+		</a>
+		<a ng-href="http://www.youtube.com/{{stateCon.youtube_id}}">
+			<i class="fi-social-youtube"></i>
+		</a>
+		<a ng-href="http://www.twitter.com/{{stateCon.twitter_id}}">
+			<i class="fi-social-twitter"></i>
+		</a>
+		<a ng-href="{{stateCon.website}}">
+			<i class="fi-web"></i>
+		</a>
+		<a ng-href="{{stateCon.contact_form}}">
+			<i class="fi-mail"></i>
+		</a>
+		<span id="phone" ng-click="togglePhone()">
+			<i class="fi-telephone"></i>
+		</span>
+	</div>
+	<div id="phone" ng-show="showPhone">
+		{{ stateCon.phone }}
+	</div>
+</div>

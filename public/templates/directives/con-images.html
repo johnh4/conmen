@@ -1,0 +1,11 @@
+<div class="row">
+	<div class="large-12 medium-12 columns">
+		<ul class="image-ul">
+			<li class="state-con" ng-repeat="stateCon in stateSunCons">
+				<img ng-src="http://www.govtrack.us/data/photos/
+										{{stateCon.govtrack_id}}-100px.jpeg" 
+						 ng-click="setCurrentCon($index)" alt="{{stateCon.last_name}}">
+			</li>
+		</ul>
+	</div>
+</div>
