@@ -4,7 +4,7 @@
 			<li class="state-con" ng-repeat="stateCon in stateSunCons">
 				<img ng-src="http://www.govtrack.us/data/photos/
 										{{stateCon.govtrack_id}}-100px.jpeg" 
-						 ng-click="setCurrentCon($index)" alt="{{stateCon.last_name}}">
+						 ng-click="setCurrentCon(stateCon)" alt="{{stateCon.last_name}}">
 			</li>
 		</ul>
 	</div>

@@ -1,3 +1,25 @@
 <div id="money" ng-show="viewSelected('money')">
 	<div class="headline"><h2>Fundraising</h2></div>
+	<div id="currentCon">
+		The currently selected member of congress is {{ currentCon.name }}.
+		<div class="contributors">
+			<ul>
+				Contributors:
+				<li class="contributor" ng-repeat="conContributor in conContributors">
+					{{ conContributor.name }} - {{ conContributor.total_amount }}
+				</li>
+			</ul>
+		</div>
+		<div class="sectors">
+			<ul>
+				Sectors:
+				<li class="sector" ng-repeat="conSector in conSectors">
+					{{ conSector.sector }} 
+					- {{ conSector.name }} 
+					- {{ conSector.amount }}
+				</li>
+			</ul>
+		</div>
+	</div>
+	<con-images></con-images>
 </div>

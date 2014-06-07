@@ -95,6 +95,7 @@ app.controller('MainCtrl',
 				return sunCon.state === state;
 			});
 			$scope.stateSunCons = stateSunCongs;
+			$scope.currentCon = $scope.stateSunCons[0];
 			console.log('$scope.stateSunCons', $scope.stateSunCons);
 			getEntityIDs();
 			var stateCongTwitterIDs = stateCongs.map(function(obj){
@@ -106,10 +107,10 @@ app.controller('MainCtrl',
 			return stateCongTwitterIDs;
 		};
 
-		$scope.setCurrentCon = function(index){
-			$scope.currentCon = index;
-			$scope.showPhone = false;
+		$scope.setCurrentCon = function(con){
+			$scope.currentCon = con;
 			console.log('$scope.CurrentCon', $scope.currentCon);
+			getMoney();
 		}
 
 		function onlyStateTweets(stateCongs){
@@ -229,36 +230,82 @@ app.controller('MainCtrl',
 		});
 		
 		function getEntityIDs(){
-			var entities = [];
-			var pol;
 			$scope.stateSunCons.forEach(function(con){
 				Influencer.idLookup({ bioguide_id: con.bioguide_id }, function(data){
-					pol = {};
-					pol.name = con.first_name + " " + con.last_name;
-					console.log('pol.name', pol.name);
-					pol.govtrackID = con.govtrack_id;
-					pol.state = con.state;
-					pol.title = con.title;
-					pol.chamber = con.chamber;
-
-					console.log('getting id from influencer.getid');
-					pol.id = data[0].id;
-					entities.push(pol);
-					console.log('entities', entities);
+					con.name = con.first_name + " " + con.last_name;
+					con.transparency_id = data[0].id;
 				});
 			});
-			return entities;
 		}
 
-		Influencer.idLookup({ bioguide_id: "L000573" }, function(data){
-			console.log('in influencer.');
-			console.log('influencer getID data', data);
-			var conID = data[0].id;
-			Influencer.contributors({ entityID: conID }, function(conData){
-				console.log('contributor conData', conData);
-				console.log('conData length', conData.length);
-			});
-		});
+		function getMoney(){
+			console.log('get money.');
+			Influencer.contributors({ entityID: $scope.currentCon.transparency_id }, 
+				function(conData){
+					$scope.conContributors = conData;
+					console.log('$scope.conContributors', $scope.conContributors);
+				}
+			);
+			Influencer.sectors({ entityID: $scope.currentCon.transparency_id }, 
+				function(conData){
+					conData.forEach(function(sector){
+						sectorName(sector);
+					});
+					$scope.conSectors = conData;
+					console.log('$scope.conSectors', $scope.conSectors);
+				}
+			);
+			function sectorName(sector){
+				switch (sector.sector){
+					case "A":
+						sector.name = "Agribusiness";
+						break;
+					case "B":
+						sector.name = "Communications/Electronics";
+						break;
+					case "C":
+						sector.name = "Construction";
+						break;
+					case "D":
+						sector.name = "Defense";
+						break;
+					case "E":
+						sector.name = "Energe/Natural Resources";
+						break;
+					case "F":
+						sector.name = "Finance/Insurance/Real Estate";
+						break;
+					case "H":
+						sector.name = "Health";
+						break;
+					case "K":
+						sector.name = "Lawyers and Lobbyists";
+						break;
+					case "M":
+						sector.name = "Transportation";
+						break;
+					case "N":
+						sector.name = "Misc. Business";
+						break;
+					case "Q":
+						sector.name = "Ideology/Single Issue";
+						break;
+					case "P":
+						sector.name = "Labor";
+						break;
+					case "W":
+						sector.name = "Other";
+						break;
+					case "Y":
+						sector.name = "Unknown";
+						break;
+					case "Z":
+						sector.name = "Administrative Use";
+						break;
+				}
+				console.log('sector.name', sector.name);
+			}
+		}
 
 		$scope.test = 'scope test';					
 		$scope.togglePhone = function(){

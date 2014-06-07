@@ -1,6 +1,6 @@
 <!-- individual congressman info: pic and links -->
 <div id="con-details" ng-repeat="stateCon in stateSunCons"
- ng-show="currentCon === $index">
+ ng-show="currentCon === stateCon">
 	<a class="con-name" ng-href="#/congress/{{stateCon.govtrack_id}}">
 		{{ stateCon.title +' '+ stateCon.first_name +' '+ stateCon.last_name }}
 		{{ '[' + stateCon.party + '-' + stateCon.state + ']' }}
