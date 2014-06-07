@@ -154,7 +154,7 @@ $red: rgb(224,22,43);
 	.headline {
 		display: inline-block;
 		text-align: center;
-		width: calc(49.7%);
+		width: calc(33.0%);
 		font-weight: bold;
 		transition: .1s all;
 		&:nth-child(n+2){
@@ -209,4 +209,11 @@ $red: rgb(224,22,43);
 		padding-bottom: 40px;
 		padding-top: 15px;
 	}
+}
+/*********** MONEY **************/
+#money {
+	background: $red;
+	color: white;
+	font-family: 'Open Sans Condensed', 'sans-serif';
+	font-weight: 300;
 }

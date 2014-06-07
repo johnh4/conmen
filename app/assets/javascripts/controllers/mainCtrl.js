@@ -1,5 +1,6 @@
-app.controller('MainCtrl', ['$scope','GovTrack','Tweets','Sunlight','NYTimes',
-	function($scope,GovTrack,Tweets,Sunlight,NYTimes){
+app.controller('MainCtrl', 
+	['$scope','GovTrack','Tweets','Sunlight','NYTimes','Influencer',
+	function($scope,GovTrack,Tweets,Sunlight,NYTimes,Influencer){
 		var useState = false;
 		var intervals = [];
 		$scope.currentCon = 0;
@@ -94,7 +95,8 @@ app.controller('MainCtrl', ['$scope','GovTrack','Tweets','Sunlight','NYTimes',
 				return sunCon.state === state;
 			});
 			$scope.stateSunCons = stateSunCongs;
-			console.log('$scope.stateCongs', $scope.stateCongs);
+			console.log('$scope.stateSunCons', $scope.stateSunCons);
+			getEntityIDs();
 			var stateCongTwitterIDs = stateCongs.map(function(obj){
 				return obj.person.twitterid;
 			});
@@ -226,6 +228,38 @@ app.controller('MainCtrl', ['$scope','GovTrack','Tweets','Sunlight','NYTimes',
 			$scope.votes = data.results.votes;
 		});
 		
+		function getEntityIDs(){
+			var entities = [];
+			var pol;
+			$scope.stateSunCons.forEach(function(con){
+				Influencer.idLookup({ bioguide_id: con.bioguide_id }, function(data){
+					pol = {};
+					pol.name = con.first_name + " " + con.last_name;
+					console.log('pol.name', pol.name);
+					pol.govtrackID = con.govtrack_id;
+					pol.state = con.state;
+					pol.title = con.title;
+					pol.chamber = con.chamber;
+
+					console.log('getting id from influencer.getid');
+					pol.id = data[0].id;
+					entities.push(pol);
+					console.log('entities', entities);
+				});
+			});
+			return entities;
+		}
+
+		Influencer.idLookup({ bioguide_id: "L000573" }, function(data){
+			console.log('in influencer.');
+			console.log('influencer getID data', data);
+			var conID = data[0].id;
+			Influencer.contributors({ entityID: conID }, function(conData){
+				console.log('contributor conData', conData);
+				console.log('conData length', conData.length);
+			});
+		});
+
 		$scope.test = 'scope test';					
 		$scope.togglePhone = function(){
 			$scope.showPhone = !$scope.showPhone;

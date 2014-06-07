@@ -27,4 +27,10 @@ app.directive('viewBar', function(){
 		restrict: 'E',
 		templateUrl: '../templates/directives/con-images.html'
 	}
+})
+.directive('money',function(){
+	return {
+		restrict: 'E',
+		templateUrl: '../templates/directives/money.html'
+	}
 });
