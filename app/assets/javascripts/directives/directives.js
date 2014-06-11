@@ -33,4 +33,16 @@ app.directive('viewBar', function(){
 		restrict: 'E',
 		templateUrl: '../templates/directives/money.html'
 	}
+})
+.directive('votesIndividual',function(){
+	return {
+		restrict: 'E',
+		templateUrl: '../templates/directives/votes-individual.html'
+	}
+})
+.directive('votesCongress',function(){
+	return {
+		restrict: 'E',
+		templateUrl: '../templates/directives/votes-congress.html'
+	}
 });

@@ -149,34 +149,26 @@ $red: rgb(224,22,43);
 	border-bottom: 1px solid white;
 	margin-bottom: 0px;
 	&:hover{
-		//background: white;
 	}
 	.headline {
 		display: inline-block;
 		text-align: center;
-		width: calc(33.0%);
+		width: calc(32.0%);
 		font-weight: bold;
 		transition: .1s all;
 		&:nth-child(n+2){
 			border-left: 1px solid white;
 		}
 		&:hover {
-			//background: white;
-			//background: $blue;
-			//background: black;
-			//box-shadow: 0 0 1px $red;
-			//text-shadow: 0 0 9px white;
 			h2 {
 				color: $blue;
-				//color: $red;
-				//color: white;
-				//font-weight: bold;
 			}
 		}
 	}
 }
 /*********** VOTES **************/
-#votes {
+.votes {
+	width: 100%;
 	background: $red;
 	color: white;
 	font-family: 'Open Sans Condensed', 'sans-serif';
@@ -209,6 +201,29 @@ $red: rgb(224,22,43);
 		padding-bottom: 40px;
 		padding-top: 15px;
 	}
+	.view-switch {
+		border-top: 1px solid white;
+		border-bottom: 1px solid white;
+		width: 100%;
+		.headline {
+			&:nth-child(n+2){
+				border-left: 1px solid white;
+			}
+			h2 {
+				//color: white;
+			}
+		}
+		&.two-tabs {
+			.headline {
+				width: 49.8%;
+			}
+		}
+	}
+	&#votes-individual {
+		.description {
+			text-align: center;
+		}
+	}
 }
 /*********** MONEY **************/
 #money {
@@ -216,4 +231,55 @@ $red: rgb(224,22,43);
 	color: white;
 	font-family: 'Open Sans Condensed', 'sans-serif';
 	font-weight: 300;
+	.contributors {
+	}
+	.contributions {
+		margin-top: 30px;
+	}
+}
+#chambers {
+	text-align: center;
+	h4 {
+		display: inline-block;
+		font-family: 'Open Sans Condensed', 'sans-serif';
+		color: white;
+	}
+	.chamber:first-child {
+		margin-right: 30px;
+	}
+	.activeChamber h4 {
+		font-weight: bold;
+	}
+}
+
+/************ ELEMENTS **************/
+.tab {
+	cursor: pointer;
+}
+.select-con {
+	#picture-pick {
+		p {
+			text-align: center;
+		}
+	}
+	#or {
+		text-align: center;
+		font-weight: bold;
+		position: relative;
+		top: 50px;
+	}
+	#then, #first {
+		text-align: center;
+	}
+	#then {
+		margin-bottom: 20px;
+	}
+	.contributions {
+		ol {
+			margin-top: 5px;
+		}
+	}
+	.activeContrib {
+		font-weight: bold;
+	}
 }

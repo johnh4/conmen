@@ -28,6 +28,12 @@ app.factory('Influencer', ['$http', '$resource',
 						params: { entityID: "@entityID", callback: "JSON_CALLBACK" },
 						isArray: true,
 						headers: {'Content-Type': 'application/json'}
+					},
+					typeBreakdown: {
+						method: 'JSONP',
+						url: 'http://transparencydata.com/api/1.0/aggregates/pol/:entityID/contributors/type_breakdown.json',
+						params: { entityID: "@entityID", callback: "JSON_CALLBACK" },
+						headers: {'Content-Type': 'application/json'}
 					}
 				}
 		);

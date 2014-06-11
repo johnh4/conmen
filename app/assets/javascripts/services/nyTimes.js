@@ -11,12 +11,20 @@ app.factory('NYTimes', ['$http', '$resource',
 				},  
 				{ votes: {
 						method: 'GET',
-						params: { chamber: 'senate', 
+						params: { chamber: '@chamber', 
 											startDate: startDate,
 											endDate: endDate },
 						headers: { 'Content-Type': 'application/json' }
+					},
+				  memberVotes: {
+						method: 'GET',
+						url: 'http://api.nytimes.com/svc/politics/:version/us/legislative/congress/members/:memberID/votes.json?api-key=e7d192c3056e60e9f1f93bc79f5be35d:10:69455457',
+						params: { memberID: '@memberID' },
+						isArray: false,
+						headers: { 'Content-Type': 'application/json' }
 					}
-				});
+				}
+		);
 		return nytResource;
 	}	
 ]);

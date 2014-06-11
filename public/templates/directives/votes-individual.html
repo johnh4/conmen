@@ -1,0 +1,91 @@
+<div id="votes-individual" class="votes" ng-show="viewSelected('votes')">
+	<div class="select-con">
+		<div id="first">
+			Want to see recent voting information for a different member of congress?
+			First choose the chamber:
+		</div>
+		<div id="chambers">
+			<span class="chamber tab" ng-click="setChamber('house')"
+						ng-class="{activeChamber: currentChamber === 'house'}">
+				<h4>House</h4>
+			</span>
+			<span class="chamber tab" ng-click="setChamber('senate')"
+						ng-class="{activeChamber: currentChamber === 'senate'}">
+				<h4>Senate</h4>
+			</span>
+		</div>
+		<div id="then">
+			Then either
+		</div>
+		<div class="row">
+			<div class="small-5 medium-5 large-5 columns">
+				Filter by State:
+				<div>
+					<select ng-model="currentState" 
+						ng-options="s.abbreviation as s.name for s in states"
+						ng-change="getStateCongs()">
+						<option value="">-- Choose a Different State --</option>
+					</select>
+				</div>
+				And select a Congressperson from that state:
+				<select ng-model="currentCon" 
+					ng-options="s as s.name for s in stateSunCons 
+											| filter:{chamber:currentChamber}"
+					ng-change="memberVotes()">
+					<option value="">-- Select --</option>
+				</select>
+			</div>
+			<div id="or" class="small-2 medium-2 large-2 columns">
+				Or
+			</div>
+			<div class="small-5 medium-5 large-5 columns">
+				<div>Choose from all
+					<span ng-show="currentChamber === 'house'">
+						Members of The House
+					</span>
+					<span ng-show="currentChamber === 'senate'">
+						Members of The Senate
+					</span>
+				</div>
+				<select ng-model="currentCon" 
+					ng-options="s as s.name group by s.state_name for s in sunCons 
+											| orderBy: ['state_name', 'last_name']
+											| filter:{chamber:currentChamber}"
+					ng-change="votesFromAll()">
+					<option value="">-- Select --</option>
+				</select>
+			</div>
+		</div>
+		<div id="picture-pick">
+			<p>
+				Or, just click on a Congressperson from the list of those 
+				who represent {{ currentState }} below to see his or her recent votes.
+			</p>
+			<con-images></con-images>
+		</div>
+	</div>
+	<div class="headline">
+		<h2>Votes Recently Cast by {{ currentCon.title +'. '+ currentCon.name }}</h2>
+	</div>
+	<div class="vote" ng-repeat="vote in memberVotes">
+		<div class="row">
+			<div class="small-12 medium-12 large-12 columns">
+				<h4 class="description">{{ vote.description }}</h4>
+			</div>
+		</div>
+		<div class="row vote-info">
+			<div class="vote-time small-4 medium-4 large-4 columns">
+				<h5>Votes Held</h5>
+				{{vote.time }} on {{ vote.date }}
+			</div>
+			<div class="vote-position small-4 medium-4 large-4 columns">
+				<h5>Vote</h5>
+				{{ vote.position }}
+			</div>
+			<div class="vote-question small-4 medium-4 large-4 columns">
+				<h5>Question</h5>
+				{{ vote.question }}
+			</div>
+		</div>
+	</div>
+</div>

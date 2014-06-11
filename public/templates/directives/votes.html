@@ -1,110 +1,16 @@
-<div id="votes" ng-show="viewSelected('votes')">
-	<div class="headline">
-		<h2>Votes Held Within the Last 30 Days</h2>
+<!-- manange which vote view is showing -->
+<div class="view-switch" ng-show="viewSelected('votes')">
+	<div class="headline tab" ng-click="setVoteView('individual')">
+		<h2>Individual</h2>
 	</div>
-	<div class="vote" ng-repeat="vote in votes">
-		<div class="row">
-			<div class="small-8 medium-8 large-8 columns">
-				<h4 class="description">{{ vote.description }}</h4>
-			</div>
-			<div class="support small-4 medium-4 large-4 columns">
-				<p>
-					Supported by {{ vote.democratic.percent }} of democrats<br>
-					Supported by {{ vote.republican.percent }} of republicans
-				</p>
-			</div>
-		</div>
-		<div class="row vote-info">
-			<div class="vote-time small-4 medium-4 large-4 columns">
-				<h5>Votes Cast</h5>
-				{{vote.time }} on {{ vote.date }}
-			</div>
-			<div class="vote-question small-4 medium-4 large-4 columns">
-				<h5>Question</h5>
-				{{ vote.question }}
-			</div>
-			<div class="vote-result small-4 medium-4 large-4 columns">
-				<h5>Result</h5>
-				{{ vote.result }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="vote-total small-3 medium-3 large-3 columns">
-				<h5 class="vote-party">Total</h5>
-				<div class="vote-cast">
-					<span class="yes">
-						Yes: {{ vote.total.yes }}
-					</span>
-					<span class="no">
-						No: {{ vote.total.no }}
-					</span>
-				</div>
-				<div class="vote-not-cast">
-					<span class="not-voting">
-						Not Voting: {{ vote.total.not_voting }}
-					</span>
-					<span class="present">
-						Present: {{ vote.total.present }}
-					</span>
-				</div>
-			</div>
-			<div class="vote-democrats small-3 medium-3 large-3 columns">
-				<h5 class="vote-party">Democrats</h5>
-				<div class="vote-cast">
-					<span class="yes">
-						Yes: {{ vote.democratic.yes }}
-					</span>
-					<span class="no">
-						No: {{ vote.democratic.no }}
-					</span>
-				</div>
-				<div class="vote-not-cast">
-					<span class="not-voting">
-						Not Voting: {{ vote.democratic.not_voting }}
-					</span>
-					<span class="present">
-						Present: {{ vote.democratic.present }}
-					</span>
-				</div>
-			</div>
-			<div class="vote-republicans small-3 medium-3 large-3 columns">
-				<h5 class="vote-party">Republicans</h5>
-				<div class="vote-cast">
-					<span class="yes">
-						Yes: {{ vote.republican.yes }}
-					</span>
-					<span class="no">
-						No: {{ vote.republican.no }}
-					</span>
-				</div>
-				<div class="vote-not-cast">
-					<span class="not-voting">
-						Not Voting: {{ vote.republican.not_voting }}
-					</span>
-					<span class="present">
-						Present: {{ vote.republican.present }}
-					</span>
-				</div>
-			</div>
-			<div class="vote-independents small-3 medium-3 large-3 columns">
-				<h5 class="vote-party">Independents</h5>
-				<div class="vote-cast">
-					<span class="yes">
-						Yes: {{ vote.independent.yes }}
-					</span>
-					<span class="no">
-						No: {{ vote.independent.no }}
-					</span>
-				</div>
-				<div class="vote-not-cast">
-					<span class="not-voting">
-						Not Voting: {{ vote.independent.not_voting }}
-					</span>
-					<span class="present">
-						Present: {{ vote.independent.present }}
-					</span>
-				</div>
-			</div>
-		</div>
+	<div class="headline tab" ng-click="setVoteView('house')">
+		<h2>House</h2>
+	</div>
+	<div class="headline tab" ng-click="setVoteView('senate')">
+		<h2>Senate</h2>
 	</div>
 </div>
+
+<!-- the vote views -->
+<votes-individual ng-show="voteViewSelected('individual')"></votes-individual>
+<votes-congress ng-show="voteViewSelected('congress')"></votes-congress>

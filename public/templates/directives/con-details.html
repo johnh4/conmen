@@ -1,4 +1,5 @@
 <!-- individual congressman info: pic and links -->
+<!-- change to use ng-model="currentCon" -->
 <div id="con-details" ng-repeat="stateCon in stateSunCons"
  ng-show="currentCon === stateCon">
 	<a class="con-name" ng-href="#/congress/{{stateCon.govtrack_id}}">
