@@ -232,6 +232,9 @@ $red: rgb(224,22,43);
 	font-family: 'Open Sans Condensed', 'sans-serif';
 	font-weight: 300;
 	.contributors {
+		.activeContrib {
+			font-weight: bold;
+		}
 	}
 	.contributions {
 		margin-top: 30px;
@@ -278,8 +281,5 @@ $red: rgb(224,22,43);
 		ol {
 			margin-top: 5px;
 		}
-	}
-	.activeContrib {
-		font-weight: bold;
 	}
 }

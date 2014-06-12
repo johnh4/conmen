@@ -7,12 +7,14 @@ app.directive('viewBar', function(){
 .directive('tweets',function(){
 	return {
 		restrict: 'E',
+		controller: 'TweetsCtrl',
 		templateUrl: '../templates/directives/tweets.html'
 	}
 })
 .directive('votes',function(){
 	return {
 		restrict: 'E',
+		controller: 'VotesCtrl',
 		templateUrl: '../templates/directives/votes.html'
 	}
 })
@@ -31,6 +33,7 @@ app.directive('viewBar', function(){
 .directive('money',function(){
 	return {
 		restrict: 'E',
+		controller: 'MoneyCtrl',
 		templateUrl: '../templates/directives/money.html'
 	}
 })

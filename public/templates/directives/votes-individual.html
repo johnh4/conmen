@@ -6,11 +6,11 @@
 		</div>
 		<div id="chambers">
 			<span class="chamber tab" ng-click="setChamber('house')"
-						ng-class="{activeChamber: currentChamber === 'house'}">
+						ng-class="{activeChamber: getCurrentChamber() === 'house'}">
 				<h4>House</h4>
 			</span>
 			<span class="chamber tab" ng-click="setChamber('senate')"
-						ng-class="{activeChamber: currentChamber === 'senate'}">
+						ng-class="{activeChamber: getCurrentChamber() === 'senate'}">
 				<h4>Senate</h4>
 			</span>
 		</div>
@@ -23,15 +23,15 @@
 				<div>
 					<select ng-model="currentState" 
 						ng-options="s.abbreviation as s.name for s in states"
-						ng-change="getStateCongs()">
+						ng-change="selState()">
 						<option value="">-- Choose a Different State --</option>
 					</select>
 				</div>
 				And select a Congressperson from that state:
 				<select ng-model="currentCon" 
-					ng-options="s as s.name for s in stateSunCons 
-											| filter:{chamber:currentChamber}"
-					ng-change="memberVotes()">
+					ng-options="s as s.name for s in stateSunCons() 
+											| filter:{chamber:getCurrentChamber()}"
+					ng-change="selConFromState()">
 					<option value="">-- Select --</option>
 				</select>
 			</div>
@@ -40,17 +40,17 @@
 			</div>
 			<div class="small-5 medium-5 large-5 columns">
 				<div>Choose from all
-					<span ng-show="currentChamber === 'house'">
+					<span ng-show="getCurrentChamber() === 'house'">
 						Members of The House
 					</span>
-					<span ng-show="currentChamber === 'senate'">
+					<span ng-show="getCurrentChamber() === 'senate'">
 						Members of The Senate
 					</span>
 				</div>
 				<select ng-model="currentCon" 
-					ng-options="s as s.name group by s.state_name for s in sunCons 
+					ng-options="s as s.name group by s.state_name for s in sunCons()
 											| orderBy: ['state_name', 'last_name']
-											| filter:{chamber:currentChamber}"
+											| filter:{chamber:getCurrentChamber()}"
 					ng-change="votesFromAll()">
 					<option value="">-- Select --</option>
 				</select>
@@ -59,15 +59,17 @@
 		<div id="picture-pick">
 			<p>
 				Or, just click on a Congressperson from the list of those 
-				who represent {{ currentState }} below to see his or her recent votes.
+				who represent {{getCurrentState()}} below to see his or her recent votes.
 			</p>
 			<con-images></con-images>
 		</div>
 	</div>
 	<div class="headline">
-		<h2>Votes Recently Cast by {{ currentCon.title +'. '+ currentCon.name }}</h2>
+		<h2>Votes Recently Cast by 
+			{{ getCurrentCon().title +'. '+ getCurrentCon().name }}
+		</h2>
 	</div>
-	<div class="vote" ng-repeat="vote in memberVotes">
+	<div class="vote" ng-repeat="vote in getMemberVotes()">
 		<div class="row">
 			<div class="small-12 medium-12 large-12 columns">
 				<h4 class="description">{{ vote.description }}</h4>

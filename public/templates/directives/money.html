@@ -1,7 +1,7 @@
 <div id="money" ng-show="viewSelected('money')">
 	<div class="headline"><h2>Fundraising</h2></div>
 	<div id="currentCon">
-		The currently selected member of congress is {{ currentCon.name }}.
+		The currently selected member of congress is {{ getCurrentCon().name }}.
 		<br>
 		<div class="contributions row">
 			<div class="small-6 medium-6 large-6 columns">
@@ -21,7 +21,7 @@
 					<ol class="contributors-list" ng-show="contribTabSelected('total')">
 						<!-- Use ng-show and tabs to only show total/direct/employee table-->
 						<li class="contributor" 
-							ng-repeat="conContributor in conContributors">
+							ng-repeat="conContributor in conContributors()">
 							{{ conContributor.name }} - 
 							{{ conContributor.total_amount | currency}}
 						</li>
@@ -29,7 +29,7 @@
 					<ol class="contributors-list" ng-show="contribTabSelected('direct')">
 						<!-- Use ng-show and tabs to only show total/direct/employee table-->
 						<li class="contributor" 
-							ng-repeat="conContributor in conContributors">
+							ng-repeat="conContributor in conContributors()">
 							{{ conContributor.name }} - 
 							{{ conContributor.direct_amount | currency}}
 						</li>
@@ -37,7 +37,7 @@
 					<ol class="contributors-list" ng-show="contribTabSelected('employees')">
 						<!-- Use ng-show and tabs to only show total/direct/employee table-->
 						<li class="contributor" 
-							ng-repeat="conContributor in conContributors">
+							ng-repeat="conContributor in conContributors()">
 							{{ conContributor.name }} - 
 							{{ conContributor.employee_amount | currency}}
 							<ng-pluralize count="conContributor.employee_count"
@@ -53,7 +53,7 @@
 				<div class="sectors">
 					Top 10 Contributing Sectors:
 					<ol>
-						<li class="sector" ng-repeat="conSector in conSectors">
+						<li class="sector" ng-repeat="conSector in conSectors()">
 							{{ conSector.name }} 
 							- {{ conSector.amount | currency }}
 						</li>
@@ -64,10 +64,10 @@
 		<div class="type">
 			<ul>Type:
 				<li> From Individuals: 
-					{{ type.Individuals[0] }} - {{ type.Individuals[1] | currency }}
+					{{ type().Individuals[0] }} - {{ type().Individuals[1] | currency }}
 				</li>
 				<li> From PACs: 
-					{{ type.PACs[0] }} - {{ type.PACs[1] | currency }}
+					{{ type().PACs[0] }} - {{ type().PACs[1] | currency }}
 				</li>
 			</ul>
 		</div>
@@ -79,11 +79,11 @@
 		</div>
 		<div id="chambers">
 			<span class="chamber tab" ng-click="setChamber('house')"
-						ng-class="{activeChamber: currentChamber === 'house'}">
+						ng-class="{activeChamber: getCurrentChamber() === 'house'}">
 				<h4>House</h4>
 			</span>
 			<span class="chamber tab" ng-click="setChamber('senate')"
-						ng-class="{activeChamber: currentChamber === 'senate'}">
+						ng-class="{activeChamber: getCurrentChamber() === 'senate'}">
 				<h4>Senate</h4>
 			</span>
 		</div>
@@ -96,15 +96,15 @@
 				<div>
 					<select ng-model="currentState" 
 						ng-options="s.abbreviation as s.name for s in states"
-						ng-change="getStateCongs()">
+						ng-change="changeState()">
 						<option value="">-- Choose a Different State --</option>
 					</select>
 				</div>
 				And select a Congressperson from that state:
 				<select ng-model="currentCon" 
-					ng-options="s as s.name for s in stateSunCons 
-											| filter:{chamber:currentChamber}"
-					ng-change="getMoney()">
+					ng-options="s as s.name for s in stateSunCons()
+											| filter:{ chamber:getCurrentChamber() }"
+					ng-change="conFromStateSel()">
 					<option value="">-- Select --</option>
 				</select>
 			</div>
@@ -113,17 +113,17 @@
 			</div>
 			<div class="small-5 medium-5 large-5 columns">
 				<div>Choose from all
-					<span ng-show="currentChamber === 'house'">
+					<span ng-show="getCurrentChamber() === 'house'">
 						Members of The House
 					</span>
-					<span ng-show="currentChamber === 'senate'">
+					<span ng-show="getCurrentChamber() === 'senate'">
 						Members of The Senate
 					</span>
 				</div>
 				<select ng-model="currentCon" 
-					ng-options="s as s.name group by s.state_name for s in sunCons 
+					ng-options="s as s.name group by s.state_name for s in sunCons()
 											| orderBy: ['state_name', 'last_name']
-											| filter:{chamber:currentChamber}"
+											| filter:{ chamber:getCurrentChamber() }"
 					ng-change="conFromAll()">
 					<option value="">-- Select --</option>
 				</select>
@@ -132,7 +132,7 @@
 		<div id="picture-pick">
 			<p>
 				Or, just click on a Congressperson from the list of those 
-				who represent {{ currentState }} below to see his or her fundraising
+				who represent {{ getCurrentState() }} below to see his or her fundraising
 				information.
 			</p>
 			<con-images></con-images>
