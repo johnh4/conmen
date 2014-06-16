@@ -1,32 +1,24 @@
-app.controller('TweetsCtrl',['$scope','CommonCon','Tweets',
-	function($scope,CommonCon,Tweets){
+app.controller('TweetsCtrl',['$scope','CommonCon','Tweets','$q','Sunlight',
+	function($scope,CommonCon,Tweets,$q,Sunlight){
 
 		var setChamber = CommonCon.setChamber;
 		var getCurrentChamber = CommonCon.getCurrentChamber;
 
-		$scope.states = CommonCon.states;
-		$scope.onlySetCurrentCon = CommonCon.onlySetCurrentCon;
 		$scope.getMemberVotes = CommonCon.getMemberVotes;
 		$scope.fetchMemberVotes = CommonCon.fetchMemberVotes;
 
-		var formatVotes = CommonCon.formatVotes;
-		var getCurrentCon = CommonCon.getCurrentCon;
-		var getStateCongs = CommonCon.genStateCons;
-		var setCurrentState = CommonCon.setCurrentState;
-
-		var getTweetStateData = CommonCon.getTweetStateData;
 		var clearIntervals = CommonCon.clearIntervals;
 		var addInterval = CommonCon.addInterval;
 		var formatTweets = CommonCon.formatTweets;
 		var updateTweets =CommonCon.updateTweets;
 		var setTweets = CommonCon.setTweets;
+
 		$scope.getTweetHL = CommonCon.getTweetHL;
-		
 		$scope.getTweets = CommonCon.getTweets;
 
 		/************ APIs ***************/
 
-		Tweets.get({}, function(data){
+		Tweets.get({}).$promise.then(function(data){
 			formatTweets(data.tweets);
 			setTweets(data.tweets);
 			console.log('$scope.tweets', $scope.tweets);	

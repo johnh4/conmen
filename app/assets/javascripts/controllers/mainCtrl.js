@@ -25,6 +25,8 @@ app.controller('MainCtrl',
 		$scope.getCurrentCon = CommonCon.getCurrentCon;
 		$scope.currentCon = CommonCon.currentCon;
 
+		$scope.states = CommonCon.states;
+
 
 		/**************** VIEWS ****************/
 

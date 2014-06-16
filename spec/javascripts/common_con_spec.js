@@ -223,6 +223,7 @@ describe("CommonCon Service", function(){
 				var tweets;
 				var inputTweet;
 				var expectedURL;
+				var newTweets;
 				beforeEach(function(){
 					tweets = { 
 						last_id: 5, 
@@ -250,6 +251,32 @@ describe("CommonCon Service", function(){
 							}
 						]
 					};
+					newTweets = { 
+						last_id: 10, 
+						tweets: [
+							{ text: "angular",
+								profile_image_url: {
+									path: "/mypick_normal.jpg",
+									scheme: "http",
+									host: "img.twitter.com"
+								}
+							},
+							{ text: "rails",
+								profile_image_url: {
+									path: "/bye_normal.jpg",
+									scheme: "http",
+									host: "img.twitter.com"
+								}
+							},
+							{ text: "node",
+								profile_image_url: {
+									path: "/live_normal.jpg",
+									scheme: "http",
+									host: "img.twitter.com"
+								}
+							}
+						]
+					};
 					inputTweet = tweets.tweets[0];
 					// build the expected tweet
 					expectedURL = inputTweet.profile_image_url.scheme +
@@ -264,6 +291,9 @@ describe("CommonCon Service", function(){
 				it("should call Tweet.state", function(){
 					expect(mockTwitter.state).toHaveBeenCalled();
 				});
+				xit("should be able to getTweetStateData", function(){
+				});
+
 				describe("formatting the tweets", function(){
 					var returnedTweets,
 							retTweet,
@@ -281,6 +311,55 @@ describe("CommonCon Service", function(){
 							toContain("_bigger");
 						expect(retURL).
 							not.toContain("_normal");
+					});
+				});
+
+				describe("Tweets Service API", function(){
+					it("should be able to getTweets", function(){
+						var storedTweets = commonCon.getTweets();
+						expect(storedTweets.length).toBe(3);
+						expect(storedTweets[0].text).toEqual("hi");
+					});
+					describe("should updateTweets", function(){
+						var updatedTweets;
+						beforeEach(function(){
+							commonCon.updateTweets(newTweets);
+							updatedTweets = commonCon.getTweets();
+						});
+						it("and return the correct # of tweets", function(){
+							expect(updatedTweets.length).toBe(6);
+						});
+						it("and return the correct # of tweets", function(){
+							expect(updatedTweets[0].text).toEqual("angular");
+						});
+					});
+					describe("can setTweets", function(){
+						var replacementTweets, storedTweets;
+						beforeEach(function(){
+							replacementTweets = [
+									{ text: "back-end",
+										profile_image_url: {
+											path: "/mypick_normal.jpg",
+											scheme: "http",
+											host: "img.twitter.com"
+										}
+									},
+									{ text: "front-end",
+										profile_image_url: {
+											path: "/live_normal.jpg",
+											scheme: "http",
+											host: "img.twitter.com"
+										}
+									}
+							];
+							commonCon.setTweets(replacementTweets);
+						  storedTweets = commonCon.getTweets();
+						});
+						it("should set the correct tweets", function(){
+							expect(storedTweets.length).toBe(2);
+							expect(storedTweets[0].text).toEqual("back-end");
+							expect(storedTweets[1].text).toEqual("front-end");
+						});
 					});
 				});
 			});

@@ -127,31 +127,36 @@ app.service('CommonCon',
 			});
 			//entityDefer.resolve();
 		}
-		
+
 		// initial get of congressperson data from the Sunlight service
 		// put in init() or run() function to run on page load
-		Sunlight.all({ page: '1' }).$promise.then(function(data){
-			console.log('sunlight data in serv page 1', data);
-			// can only retrieve 50 results at a time, so manage multiple calls
-			//var count = data.count;
-			var total = data.count;
-			// pages default to 1 when total isn't available
-			var pages = Math.ceil(total/50) || 1;
-			formatSunRes(data.results);
-			var results = data.results;
-			if(pages <= 1) sunCons = results;
-			for(var i=2; i <= pages; i++){
-				Sunlight.all({ page: i }).$promise.then(function(nextData){
-					// set the full name for each congressperson
-					formatSunRes(nextData.results);
-					results = results.concat(nextData.results);
-					if(results.length > 520){
-						console.log('sunlight results', results);
-					}
-					sunCons = results;
-				});
-			}
-		});
+		this.run = function(){
+			Sunlight.all({ page: '1' }).$promise.then(function(data){
+				console.log('sunlight data in serv page 1', data);
+				// can only retrieve 50 results at a time, so manage multiple calls
+				//var count = data.count;
+				var total = data.count;
+				// pages default to 1 when total isn't available
+				var pages = Math.ceil(total/50) || 1;
+				formatSunRes(data.results);
+				var results = data.results;
+				if(pages <= 1) sunCons = results;
+				for(var i=2; i <= pages; i++){
+					Sunlight.all({ page: i }).$promise.then(function(nextData){
+						// set the full name for each congressperson
+						formatSunRes(nextData.results);
+						results = results.concat(nextData.results);
+						if(results.length > 520){
+							console.log('sunlight results', results);
+						}
+						sunCons = results;
+					});
+				}
+			});
+		}
+
+		this.run();
+
 		// add a full name to each congressperson object
 		function formatSunRes(results){
 			results.forEach(function(con){
