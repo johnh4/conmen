@@ -5,32 +5,26 @@ app.controller('MainCtrl',
 		var intervals = [];
 		var lastTweetId;
 		$scope.showPhone = false;
-		$scope.currentView = "votes";
+		$scope.currentView = "tweets";
 
 		/**************** COMMON ******************/
 
-		$scope.getPres = CommonCon.getPres;
-
 		$scope.setChamber = CommonCon.setChamber;
-
 		$scope.getCurrentChamber = CommonCon.getCurrentChamber;
 
 		$scope.getCurrentState = CommonCon.getCurrentState;
-
 		$scope.setCurrentState = CommonCon.setCurrentState;
 
 		$scope.sunCons = CommonCon.getSunCons;
-		$scope.getStateCongs = CommonCon.genStateCons;
 
+		$scope.getStateCongs = CommonCon.genStateCons;
 		$scope.stateSunCons = CommonCon.getStateSunCons;
 
 		$scope.setCurrentCon = CommonCon.setCurrentCon;
 		$scope.onlySetCurrentCon = CommonCon.onlySetCurrentCon;
 		$scope.getCurrentCon = CommonCon.getCurrentCon;
+		$scope.currentCon = CommonCon.currentCon;
 
-		$scope.togglePhone = function(){
-			$scope.showPhone = !$scope.showPhone;
-		}
 
 		/**************** VIEWS ****************/
 
@@ -41,6 +35,9 @@ app.controller('MainCtrl',
 		}
 		$scope.viewSelected = function(view){
 			return $scope.currentView == view;
+		}
+		$scope.togglePhone = function(){
+			$scope.showPhone = !$scope.showPhone;
 		}
 
 		$scope.test = 'scope test';					

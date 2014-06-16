@@ -1,6 +1,6 @@
 app.service('CommonCon', 
-	['Sunlight','Influencer', 'NYTimes','Tweets',
-	function(Sunlight,Influencer,NYTimes,Tweets){
+	['Sunlight','Influencer', 'NYTimes','Tweets','$q',
+	function(Sunlight,Influencer,NYTimes,Tweets,$q){
 
 		var self = this;
 		var currentCon = {};
@@ -14,6 +14,8 @@ app.service('CommonCon',
 		var memberVotes = null;
 		var tweets = null;
 		var tweetHL = "Tweets from Members of Congress";
+
+		var entityDefer;
 
 		/************ GENERAL ************/
 
@@ -72,7 +74,21 @@ app.service('CommonCon',
 				return sunCon.state === currentState;
 			});
 			console.log('stateSunCons in serv', stateSunCons);
+
+			/*
+			// promise 
+			entityDefer = $q.defer();
+			var entityPromise = entityDefer.promise;
+			entityPromise.then(function(){
+				console.log('entity ids unlocked. stateSunCons:', stateSunCons);
+				// could move setCurrentCon to here
+			});
+			*/
+
+			// get transparency_ids for influencer api call
 			getEntityIDs();
+
+			// return array of twitter ids
 			var stateCongTwitterIDs = stateSunCons.map(function(obj){
 				return obj.twitter_id;
 			});
@@ -92,9 +108,11 @@ app.service('CommonCon',
 
 		function getEntityIDs(){
 			stateSunCons.forEach(function(con, index){
-				Influencer.idLookup({ bioguide_id: con.bioguide_id }, function(data){
+				Influencer.idLookup({ bioguide_id: con.bioguide_id }).$promise.
+				then(function(data){
 					// add the transparency_id to each congressperson in our state list
 					con.transparency_id = data[0].id;
+					console.log('con in influencer', con);
 					// set the current congressperson now that we can make the api calls
 					if (currentCon.bioguide_id === con.bioguide_id && 
 							currentCon.state === currentState){
@@ -107,18 +125,23 @@ app.service('CommonCon',
 					}
 				});
 			});
+			//entityDefer.resolve();
 		}
-
+		
+		// initial get of congressperson data from the Sunlight service
 		// put in init() or run() function to run on page load
-		Sunlight.all({ page: '1' }, function(data){
+		Sunlight.all({ page: '1' }).$promise.then(function(data){
 			console.log('sunlight data in serv page 1', data);
-			var count = data.count;
-			var total = count;
-			var pages = Math.ceil(total/50);
+			// can only retrieve 50 results at a time, so manage multiple calls
+			//var count = data.count;
+			var total = data.count;
+			// pages default to 1 when total isn't available
+			var pages = Math.ceil(total/50) || 1;
 			formatSunRes(data.results);
 			var results = data.results;
+			if(pages <= 1) sunCons = results;
 			for(var i=2; i <= pages; i++){
-				Sunlight.all({ page: i }, function(nextData){
+				Sunlight.all({ page: i }).$promise.then(function(nextData){
 					// set the full name for each congressperson
 					formatSunRes(nextData.results);
 					results = results.concat(nextData.results);
@@ -129,6 +152,7 @@ app.service('CommonCon',
 				});
 			}
 		});
+		// add a full name to each congressperson object
 		function formatSunRes(results){
 			results.forEach(function(con){
 				con.name = con.first_name + " " + con.last_name;
@@ -171,7 +195,7 @@ app.service('CommonCon',
 		var intervals = [];
 		this.getTweetStateData = function(stateCongTwitterIDs){
 			console.log('in getTweetStateData() in serv');
-			Tweets.state({ stateCongs: stateCongTwitterIDs }, function(data){
+			Tweets.state({stateCongs:stateCongTwitterIDs}).$promise.then(function(data){
 				console.log('data.tweets', data.tweets);
 				self.formatTweets(data.tweets);
 				tweets = data.tweets;
@@ -191,6 +215,8 @@ app.service('CommonCon',
 								lastId: lastTweetId
 							}, 
 							function(refreshed){
+								self.updateTweets(refreshed);
+								/*
 								var newTweets = refreshed.tweets;
 								console.log('newTweets', newTweets);
 								console.log("refreshed.last_id", refreshed.last_id);
@@ -201,6 +227,7 @@ app.service('CommonCon',
 										tweets.unshift(newTweets[i]);
 									}
 								}
+								*/
 							}
 						);
 					}
@@ -239,8 +266,7 @@ app.service('CommonCon',
 		this.fetchMemberVotes = function(){
 			console.log('in fetchMemberVotes in serv');
 			console.log('currentCon in fetchMemberVotes', currentCon);
-			NYTimes.memberVotes({ memberID: currentCon.bioguide_id }, 
-				function(data){
+			NYTimes.memberVotes({ memberID: currentCon.bioguide_id }).$promise.then(function(data){
 					self.formatVotes(data.results[0].votes);
 					console.log('nyt member vote data', data);
 					memberVotes = data.results[0].votes;
@@ -279,14 +305,14 @@ app.service('CommonCon',
 		this.getMoney = function(){
 			console.log('get money in serv.');
 			// memoize this
-			Influencer.contributors({ entityID: currentCon.transparency_id }, 
-				function(conData){
+			Influencer.contributors({ entityID: currentCon.transparency_id }).$promise
+			.then(function(conData){
 					conContributors = conData;
 					console.log('conContributors in serv getMoney', conContributors);
 				}
 			);
-			Influencer.sectors({ entityID: currentCon.transparency_id }, 
-				function(conData){
+			Influencer.sectors({ entityID: currentCon.transparency_id }).$promise
+			.then(function(conData){
 					conData.forEach(function(sector){
 						sectorName(sector);
 					});
@@ -294,8 +320,8 @@ app.service('CommonCon',
 					console.log('conSectors in serv getMoney', conSectors);
 				}
 			);
-			Influencer.typeBreakdown({ entityID: currentCon.transparency_id }, 
-				function(typeData){
+			Influencer.typeBreakdown({ entityID: currentCon.transparency_id }).$promise
+			.then(function(typeData){
 					console.log('typeData in serv getMoney', typeData);
 					type = typeData;
 					console.log('type in serv getMoney', type);

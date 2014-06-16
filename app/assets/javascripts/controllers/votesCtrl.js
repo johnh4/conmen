@@ -21,7 +21,7 @@ app.controller('VotesCtrl',['$scope','CommonCon','NYTimes',
 		$scope.getVotes = function(chamber){
 			setChamber(chamber);
 			// get recent vote data from the nytimes api
-			NYTimes.votes({ chamber: getCurrentChamber() }, function(data){
+			NYTimes.votes({ chamber: getCurrentChamber() }).$promise.then(function(data){
 				console.log('nyt vote data', data);
 				formatVotes(data.results.votes);
 				$scope.votes = data.results.votes;

@@ -18,6 +18,13 @@ app.directive('viewBar', function(){
 		templateUrl: '../templates/directives/votes.html'
 	}
 })
+.directive('money',function(){
+	return {
+		restrict: 'E',
+		controller: 'MoneyCtrl',
+		templateUrl: '../templates/directives/money.html'
+	}
+})
 .directive('conDetails',function(){
 	return {
 		restrict: 'E',
@@ -28,13 +35,6 @@ app.directive('viewBar', function(){
 	return {
 		restrict: 'E',
 		templateUrl: '../templates/directives/con-images.html'
-	}
-})
-.directive('money',function(){
-	return {
-		restrict: 'E',
-		controller: 'MoneyCtrl',
-		templateUrl: '../templates/directives/money.html'
 	}
 })
 .directive('votesIndividual',function(){
