@@ -1,8 +1,15 @@
 <div id="votes-individual" class="votes" ng-show="viewSelected('votes')">
 	<div class="select-con">
 		<div id="first">
-			Want to see recent voting information for a different member of congress?
-			First choose the chamber:
+				Want to see the recent votes of a 
+			<span ng-show="noConSelected()">
+				specific
+			</span>
+			<span ng-show="!noConSelected()">
+				different
+			</span>
+				member of congress?
+				First choose the chamber:
 		</div>
 		<div id="chambers">
 			<span class="chamber tab" ng-click="setChamber('house')"
@@ -57,14 +64,15 @@
 			</div>
 		</div>
 		<div id="picture-pick">
-			<p>
+			<p ng-hide="noStateSelected()">
 				Or, just click on a Congressperson from the list of those 
-				who represent {{getCurrentState()}} below to see his or her recent votes.
+				who represent {{ getCurrentState() }} below to see his or her fundraising
+				information.
 			</p>
 			<con-images></con-images>
 		</div>
 	</div>
-	<div class="headline">
+	<div class="headline" ng-hide="noConSelected()">
 		<h2>Votes Recently Cast by 
 			{{ getCurrentCon().title +'. '+ getCurrentCon().name }}
 		</h2>

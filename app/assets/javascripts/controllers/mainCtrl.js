@@ -23,7 +23,7 @@ app.controller('MainCtrl',
 		$scope.setCurrentCon = CommonCon.setCurrentCon;
 		$scope.onlySetCurrentCon = CommonCon.onlySetCurrentCon;
 		$scope.getCurrentCon = CommonCon.getCurrentCon;
-		$scope.currentCon = CommonCon.currentCon;
+		//$scope.currentCon = CommonCon.currentCon;
 
 		$scope.states = CommonCon.states;
 
@@ -40,6 +40,14 @@ app.controller('MainCtrl',
 		}
 		$scope.togglePhone = function(){
 			$scope.showPhone = !$scope.showPhone;
+		}
+		$scope.noConSelected = function(){
+			var con = $scope.getCurrentCon();
+			return Object.keys(con).length === 0;
+		}
+		$scope.noStateSelected = function(){
+			state = $scope.getCurrentState();
+			return state === null;
 		}
 
 		$scope.test = 'scope test';					

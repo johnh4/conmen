@@ -1,6 +1,6 @@
-<div id="money" ng-show="viewSelected('money')">
+<div id="money"  ng-show="viewSelected('money')">
 	<div class="headline"><h2>Fundraising</h2></div>
-	<div id="currentCon">
+	<div id="currentCon" ng-hide="noConSelected()">
 		The currently selected member of congress is {{ getCurrentCon().name }}.
 		<br>
 		<div class="contributions row">
@@ -74,8 +74,15 @@
 	</div>
 	<div class="select-con">
 		<div id="first">
-			Want to see fundraising information for a different member of congress?
-			First choose the chamber:
+				Want to see the fundraising information of a 
+			<span ng-show="noConSelected()">
+				specific
+			</span>
+			<span ng-show="!noConSelected()">
+				different
+			</span>
+				member of congress?
+				First choose the chamber:
 		</div>
 		<div id="chambers">
 			<span class="chamber tab" ng-click="setChamber('house')"
@@ -130,7 +137,7 @@
 			</div>
 		</div>
 		<div id="picture-pick">
-			<p>
+			<p ng-hide="noStateSelected()">
 				Or, just click on a Congressperson from the list of those 
 				who represent {{ getCurrentState() }} below to see his or her fundraising
 				information.

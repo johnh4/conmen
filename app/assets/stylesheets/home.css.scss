@@ -148,8 +148,6 @@ $red: rgb(224,22,43);
 	background: $red;
 	border-bottom: 1px solid white;
 	margin-bottom: 0px;
-	&:hover{
-	}
 	.headline {
 		display: inline-block;
 		text-align: center;
@@ -159,8 +157,14 @@ $red: rgb(224,22,43);
 		&:nth-child(n+2){
 			border-left: 1px solid white;
 		}
-		&:hover {
-			h2 {
+		&.activeView h2 {
+			color: $blue;
+		}
+	}
+	&:hover{
+		.headline h2 {
+			color: white;
+			&:hover {
 				color: $blue;
 			}
 		}
@@ -173,6 +177,7 @@ $red: rgb(224,22,43);
 	color: white;
 	font-family: 'Open Sans Condensed', 'sans-serif';
 	font-weight: 300;
+	padding-top: 10px;
 	.description {
 		color: white;
 	}

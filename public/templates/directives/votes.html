@@ -1,12 +1,15 @@
 <!-- manange which vote view is showing -->
 <div class="view-switch" ng-show="viewSelected('votes')">
-	<div class="headline tab" ng-click="setVoteView('individual')">
+	<div class="headline tab" ng-click="setVoteView('individual')"
+			 ng-class= "{activeView: voteViewSelected('individual')}">
 		<h2>Individual</h2>
 	</div>
-	<div class="headline tab" ng-click="setVoteView('house')">
+	<div class="headline tab" ng-click="setVoteView('house')"
+			 ng-class= "{activeView: voteViewSelected('house')}">
 		<h2>House</h2>
 	</div>
-	<div class="headline tab" ng-click="setVoteView('senate')">
+	<div class="headline tab" ng-click="setVoteView('senate')"
+			 ng-class= "{activeView: voteViewSelected('senate')}">
 		<h2>Senate</h2>
 	</div>
 </div>

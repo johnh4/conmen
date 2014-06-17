@@ -33,7 +33,6 @@ app.controller('VotesCtrl',['$scope','CommonCon','NYTimes',
 		$scope.selState = function(){
 			CommonCon.setCurrentState($scope.currentState);
 			getStateCongs();
-			//CommonCon.genStateCons();
 		}
 
 		$scope.selConFromState = function(){
