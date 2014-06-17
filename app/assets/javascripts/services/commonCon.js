@@ -271,7 +271,8 @@ app.service('CommonCon',
 		this.fetchMemberVotes = function(){
 			console.log('in fetchMemberVotes in serv');
 			console.log('currentCon in fetchMemberVotes', currentCon);
-			NYTimes.memberVotes({ memberID: currentCon.bioguide_id }).$promise.then(function(data){
+			NYTimes.memberVotes({ memberID: currentCon.bioguide_id }).
+			$promise.then(function(data){
 					self.formatVotes(data.results[0].votes);
 					console.log('nyt member vote data', data);
 					memberVotes = data.results[0].votes;
