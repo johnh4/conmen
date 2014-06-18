@@ -2,12 +2,12 @@
 <!-- change to use ng-model="getCurrentCon()" -->
 <div id="con-details" ng-repeat="stateCon in stateSunCons()"
  ng-show="getCurrentCon() === stateCon">
-	<a class="con-name" ng-href="#/congress/{{stateCon.govtrack_id}}">
+	<div class="con-name">
 		{{ stateCon.title +' '+ stateCon.first_name +' '+ stateCon.last_name }}
 		{{ '[' + stateCon.party + '-' + stateCon.state + ']' }}
+	</div>
 		<img ng-src="http://www.govtrack.us/data/photos/
 								{{stateCon.govtrack_id}}.jpeg">
-	</a>
 	<div class="social-icons">
 		<a ng-href="http://www.facebook.com/{{stateCon.facebook_id}}">
 			<i class="fi-social-facebook"></i>
@@ -30,5 +30,9 @@
 	</div>
 	<div id="phone" ng-show="showPhone">
 		{{ stateCon.phone }}
+	</div>
+	<div class="scroll-buttons">
+		<button ng-click="scrollToSection('votes-sect')">Votes</button>
+		<button ng-click="scrollToSection('contributions-sect')">Money</button>
 	</div>
 </div>

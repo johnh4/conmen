@@ -1,6 +1,8 @@
 app.controller('MainCtrl', 
 	['$scope','GovTrack','Tweets','Sunlight','NYTimes','Influencer','CommonCon',
-	function($scope,GovTrack,Tweets,Sunlight,NYTimes,Influencer,CommonCon){
+	 '$location','$anchorScroll','$timeout',
+	function($scope,GovTrack,Tweets,Sunlight,NYTimes,Influencer,CommonCon,
+	$location, $anchorScroll,$timeout){
 		var useState = false;
 		var intervals = [];
 		var lastTweetId;
@@ -51,5 +53,26 @@ app.controller('MainCtrl',
 		}
 
 		$scope.test = 'scope test';					
+
+		/*
+		$scope.$on('$locationChangeStart', function(ev) {
+			ev.preventDefault();
+		});
+		*/
+
+		$scope.scrollToSection = function(section){
+			var old = $location.hash();
+			//reset to old to keep any additional routing logic from kicking in
+			if(section === "votes-sect"){
+				$scope.setCurrentView('votes');
+			} else if(section === "contributions-sect"){
+				$scope.setCurrentView('money');
+			}
+			$timeout(function(){
+				$location.hash(section);
+				$anchorScroll();
+				$location.hash(old);
+			},100);
+		}
 	}
 ]);

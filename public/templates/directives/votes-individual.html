@@ -8,8 +8,7 @@
 			<span ng-show="!noConSelected()">
 				different
 			</span>
-				member of congress?
-				First choose the chamber:
+				member of congress? First choose the chamber:
 		</div>
 		<div id="chambers">
 			<span class="chamber tab" ng-click="setChamber('house')"
@@ -72,6 +71,7 @@
 			<con-images></con-images>
 		</div>
 	</div>
+	<div id="votes-sect"></div>
 	<div class="headline" ng-hide="noConSelected()">
 		<h2>Votes Recently Cast by 
 			{{ getCurrentCon().title +'. '+ getCurrentCon().name }}

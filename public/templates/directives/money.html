@@ -3,7 +3,7 @@
 	<div id="currentCon" ng-hide="noConSelected()">
 		The currently selected member of congress is {{ getCurrentCon().name }}.
 		<br>
-		<div class="contributions row">
+		<div class="contributions row" id="contributions-sect">
 			<div class="small-6 medium-6 large-6 columns">
 				<div class="contributors">
 					Top 10 Contributors: 
@@ -27,7 +27,6 @@
 						</li>
 					</ol>
 					<ol class="contributors-list" ng-show="contribTabSelected('direct')">
-						<!-- Use ng-show and tabs to only show total/direct/employee table-->
 						<li class="contributor" 
 							ng-repeat="conContributor in conContributors()">
 							{{ conContributor.name }} - 
@@ -35,7 +34,6 @@
 						</li>
 					</ol>
 					<ol class="contributors-list" ng-show="contribTabSelected('employees')">
-						<!-- Use ng-show and tabs to only show total/direct/employee table-->
 						<li class="contributor" 
 							ng-repeat="conContributor in conContributors()">
 							{{ conContributor.name }} - 
@@ -49,7 +47,7 @@
 					</ol>
 				</div>
 			</div>
-			<div class="small-6 medium-6 large-6 columns">
+			<div class="small-6 medium-6 large-6 columns" id="sectors-sect">
 				<div class="sectors">
 					Top 10 Contributing Sectors:
 					<ol>
@@ -81,8 +79,7 @@
 			<span ng-show="!noConSelected()">
 				different
 			</span>
-				member of congress?
-				First choose the chamber:
+				member of congress? First choose the chamber:
 		</div>
 		<div id="chambers">
 			<span class="chamber tab" ng-click="setChamber('house')"

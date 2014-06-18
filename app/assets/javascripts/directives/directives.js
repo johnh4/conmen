@@ -48,4 +48,10 @@ app.directive('viewBar', function(){
 		restrict: 'E',
 		templateUrl: '../templates/directives/votes-congress.html'
 	}
+})
+.directive('directions',function(){
+	return {
+		restrict: 'E',
+		templateUrl: '../templates/directives/directions.html'
+	}
 });
