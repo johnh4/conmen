@@ -1,9 +1,16 @@
 <div id="money"  ng-show="viewSelected('money')">
-	<div class="headline"><h2>Fundraising</h2></div>
+	<div class="headline">
+		<h2 ng-show="noConSelected()">Fundraising</h2>
+	</div>
 	<div id="currentCon" ng-hide="noConSelected()">
-		The currently selected member of congress is {{ getCurrentCon().name }}.
 		<br>
 		<div class="contributions row" id="contributions-sect">
+			<div class="headline">
+				<h2 ng-hide="noConSelected()">
+					Fundraising for 
+					{{ getCurrentCon().title + ". " + getCurrentCon().name }}
+				</h2>
+			</div>
 			<div class="small-6 medium-6 large-6 columns">
 				<div class="contributors">
 					Top 10 Contributors: 
